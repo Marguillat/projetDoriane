@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL" />
+    <!--tailwind-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'beige': {
+                            '50': '#f9f5f3',
+                            '100': '#f3ebe5',
+                            '200': '#e3d1c5',
+                            '300': '#d2b29f',
+                            '400': '#bf8e78',
+                            '500': '#b1745e',
+                            '600': '#a46252',
+                            '700': '#894f45',
+                            '800': '#6f423d',
+                            '900': '#5b3733',
+                            '950': '#301c1a',
+                        },
+                        'red': {
+                            '50': '#fcf4f4',
+                            '100': '#fae6e6',
+                            '200': '#f3c5c5',
+                            '300': '#eeb3b3',
+                            '400': '#e38686',
+                            '500': '#d45f5f',
+                            '600': '#bf4343',
+                            '700': '#a03535',
+                            '800': '#852f2f',
+                            '900': '#6f2d2d',
+                            '950': '#3c1313',
+                        },
+                        'orange': {
+                            '50': '#fef7ee',
+                            '100': '#fcedd8',
+                            '200': '#fae0c1',
+                            '300': '#f4bb7d',
+                            '400': '#ef9448',
+                            '500': '#ea7825',
+                            '600': '#dc5f1a',
+                            '700': '#b64718',
+                            '800': '#91391b',
+                            '900': '#753119',
+                            '950': '#3f160b',
+                        },
+                        'blue': {
+                            '50': '#f4f3ff',
+                            '100': '#ebe9fe',
+                            '200': '#d5d2fe',
+                            '300': '#bcb5fd',
+                            '400': '#9b8bfa',
+                            '500': '#7b5cf6',
+                            '600': '#693aed',
+                            '700': '#5a28d9',
+                            '800': '#4b21b6',
+                            '900': '#3f1d95',
+                            '950': '#251065',
+                        },
+                        'cruise': {
+                            '50': '#eefbf5',
+                            '100': '#d5f6e6',
+                            '200': '#bff0db',
+                            '300': '#79dcb8',
+                            '400': '#43c499',
+                            '500': '#20a980',
+                            '600': '#128968',
+                            '700': '#0f6d55',
+                            '800': '#0e5744',
+                            '900': '#0d473a',
+                            '950': '#062821',
+                        },
+                    }
+                },
+                borderRadius:{
+                    'xsm':'5px',
+                    'sm':'10px',
+                    'md':'15px',
+                    'lg':'20px'
+                }
+            }
+        }
+    </script>
+    <!--tailwind-->
+    <title>App doriane</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="h-24 bg-beige-100 flex flex-col justify-center">
+        <nav class="w-full flex justify-evenly">
+            <!-- nav element -->
+            <a href="/" class="active p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+                <img src="../public/svg/calendar.svg" class="w-8 h-8">
+                <p>Calendriers</p>
+            </a>
+            <!-- fin nav element -->
+            <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+                <img src="../public/svg/student.svg" class="w-8 h-8">
+                <p>Formateurs</p>
+            </a>
+            <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+                <img src="../public/svg/block.svg" class="w-8 h-8">
+                <p>Modules</p>
+            </a>
+            <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+                <img src="../public/svg/person.svg" class="w-8 h-8">
+                <p>Classes</p>
+            </a>
+        </nav>
+    </header>
+    <!-- Fin Header -->
+
+
+    <section class="m-14 ">
+    <!--Page calendrier-->
+        <h1 class="text-5xl font-bold">
+            Calendrier
+        </h1>
+        <div class="flex">
+            <main class="w-full max-w-[1369px]">
+                <!--filters-->
+                <form class="flex">
+                    <div>
+                        <p class="flex gap-2">
+                            <img src="../public/svg/puzzle.svg">
+                            Voir par
+                        </p>
+                        <select name="type" id="type" onchange="submitForm()">
+                            <option value="class">Classe</option>
+                            <option value="teacher">Formateurs</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Filtres</p>
+                        <select name="class"  onchange="submitForm()">
+                            <option value="class">B3 - DEV</option>
+                            <option value="teacher">M2 - GOOFY</option>
+                        </select>
+                        <select name="session"  onchange="submitForm()">
+                            <option value="class">2024/2025</option>
+                            <option value="teacher">2025/2026</option>
+                        </select>
+                    </div>
+
+                </form>
+                <!--fin filters-->
+
+                <!--Calendrier-->
+                <div class="p-5 bg-beige-100 rounded-lg flex flex-col gap-5">
+                    <h2 class="flex gap-2">
+                        <img src="../public/svg/calendar.svg">
+                        Calendrier B3 - DEV - 2024/2025
+                    </h2>
+                    <div id="calendar" class="bg-white rounded-sm">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>Lundi</th>
+                                    <th>Mardi</th>
+                                    <th>Mercredi</th>
+                                    <th>Jeudi</th>
+                                    <th>Vendredi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!--une ligne du tableau-->
+                                <tr>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                </tr>
+                            <!-- fin une ligne du tableau-->
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <!--Fin Calendrier-->
+            </main>
+            <aside>
+
+            </aside>
+        </div>
+    <!--fin page calendrier-->
+
+    </section>
+</body>
+</html>
