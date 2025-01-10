@@ -1,0 +1,77 @@
+    <section class="m-14 ">
+    <!--Page calendrier-->
+        <h1 class="text-5xl font-bold">
+            Calendrier
+        </h1>
+        <div class="flex">
+            <main class="w-full max-w-[1369px]">
+                <!--filters-->
+                <form class="flex">
+                    <div>
+                        <p class="flex gap-2">
+                            <img src="../public/svg/puzzle.svg">
+                            Voir par
+                        </p>
+                        <select name="type" id="type" onchange="submitForm()">
+                            <option value="class">Classe</option>
+                            <option value="teacher">Formateurs</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Filtres</p>
+                        <select name="class"  onchange="submitForm()">
+                            <option value="class">B3 - DEV</option>
+                            <option value="teacher">M2 - GOOFY</option>
+                        </select>
+                        <select name="session"  onchange="submitForm()">
+                            <option value="class">2024/2025</option>
+                            <option value="teacher">2025/2026</option>
+                        </select>
+                    </div>
+
+                </form>
+                <!--fin filters-->
+
+                <!--Calendrier-->
+                <div class="p-5 bg-beige-100 rounded-lg flex flex-col gap-5">
+                    <h2 class="flex gap-2">
+                        <img src="../public/svg/calendar.svg">
+                        Calendrier B3 - DEV - 2024/2025
+                    </h2>
+                    <div id="calendar" class="bg-white rounded-sm">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>Lundi</th>
+                                    <th>Mardi</th>
+                                    <th>Mercredi</th>
+                                    <th>Jeudi</th>
+                                    <th>Vendredi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!--une ligne du tableau-->
+                                <tr>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                    <td>HTML tables</td>
+                                </tr>
+                            <!-- fin une ligne du tableau-->
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <!--Fin Calendrier-->
+            </main>
+            <aside>
+
+            </aside>
+        </div>
+    <!--fin page calendrier-->
+
+    </section>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "name": "erwan/projet-doriane",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "margouillat",
+            "email": "erwanduchene@gmail.com"
+        }
+    ],
+    "require": {}
+}
