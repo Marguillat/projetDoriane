@@ -6,21 +6,21 @@ require(__DIR__.'/metaHead.phtml');
     <header class="h-24 bg-beige-100 flex flex-col justify-center">
         <nav class="w-full flex justify-evenly">
             <!-- nav element -->
-            <a href="/" class="active p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
-                <img src="../public/svg/calendar.svg" class="w-8 h-8">
+            <a href="<?= $this->baseUrl?>" class="active p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+                <img src="<?= $this->baseUrl.'/projet-Doriane/public/svg/calendar.svg'?>" class="w-8 h-8">
                 <p>Calendriers</p>
             </a>
             <!-- fin nav element -->
             <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
-                <img src="../public/svg/student.svg" class="w-8 h-8">
+                <img src="<?= $this->baseUrl.'/projet-Doriane/public/svg/person.svg'?>" class="w-8 h-8">
                 <p>Formateurs</p>
             </a>
             <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
-                <img src="../public/svg/block.svg" class="w-8 h-8">
+                <img src="<?= $this->baseUrl.'/projet-Doriane/public/svg/person.svg'?>" class="w-8 h-8">
                 <p>Modules</p>
             </a>
             <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
-                <img src="../public/svg/person.svg" class="w-8 h-8">
+                <img src="<?= $this->baseUrl.'/projet-Doriane/public/svg/calendar.svg'?>" class="w-8 h-8">
                 <p>Classes</p>
             </a>
         </nav>

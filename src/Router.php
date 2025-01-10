@@ -9,7 +9,7 @@ class Router {
 
     const ROUTES = [
         'GET' => [
-            '/projet-Doriane/calendrier'=>'src\\Controllers\\CalendrierController',
+            '/projet-Doriane/calendrier/'=>'src\\Controllers\\CalendrierController',
             '/projet-Doriane/'=>'src\\Controllers\\CalendrierController',
 
         ],

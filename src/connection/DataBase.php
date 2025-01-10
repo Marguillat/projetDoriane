@@ -11,27 +11,27 @@ class DataBase{
     //pas de duplication de connexion
     private static $_instance;
 
-    private $host;
-    private $dbname;
-    private $login;
-    private $pwd;
+    private static $host;
+    private static $dbname;
+    private static $login;
+    private static $pwd;
 
     public function __construct()
     {
         $dbConfig = Config::getConfig("mysql");
-        $this->host = $dbConfig['host'];
-        $this->dbname = $dbConfig['dbname'];
-        $this->login = $dbConfig['login'];
-        $this->pwd = $dbConfig['pwd'];
+        self::$host = $dbConfig['host'];
+        self::$dbname = $dbConfig['dbname'];
+        self::$login = $dbConfig['login'];
+        self::$pwd = $dbConfig['pwd'];
     }
 
-    public function connect(){
+    public static function connect(){
 
         if(empty(self::$_instance)){
             $dbHander = new PDO(
-                'mysql:host='.$this->host.';dbname='.$this->dbname, 
-                $this->login,
-                $this->pwd,
+                'mysql:host='.self::$host.';dbname='.self::$dbname, 
+                self::$login,
+                self::$pwd,
             );              //Connexion via PDO
             $dbHander->exec("SET NAMES 'utf8'");                                                                             //Activation de l'UTF8
             $dbHander->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
