@@ -1,37 +1,42 @@
 <?php
 
-namespace src ;
+namespace src;
 
 use Exception;
 
-class Router {
-
-
+class Router
+{
     const ROUTES = [
-        'GET' => [
-            '/projet-Doriane/calendrier/'=>'src\\Controllers\\CalendrierController',
-            '/projet-Doriane/'=>'src\\Controllers\\CalendrierController',
-
+        "GET" => [
+            "/projet-Doriane/calendrier/" =>
+                "src\\Controllers\\CalendrierController",
+            "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
         ],
-        'POST'=>[
-            ''=>'',
-            ''=>''
-        ]
+        "POST" => [
+            "" => "",
+            "" => "",
+        ],
     ];
 
-    public function __construct(){}
+    public function __construct() {}
 
-    public function handleRouting($fullUri,$httpMethod){
+    /**
+     * @return string
+     * @param mixed $fullUri
+     * @param mixed $httpMethod
+     */
+    public function handleRouting($fullUri, $httpMethod): string
+    {
         $params = parse_url($fullUri);
-        $query = '';
-        if(!empty($params["query"])){
+        $query = "";
+        if (!empty($params["query"])) {
             $query = $params["query"];
         }
-        $path = $params["path"]; 
+        $path = $params["path"];
 
         $routeExist = isset(self::ROUTES[$httpMethod][$path]);
-        
-        if(!$routeExist){
+
+        if (!$routeExist) {
             throw new Exception("Error Processing Request", 1);
         }
 
