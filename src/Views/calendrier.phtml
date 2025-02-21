@@ -4,21 +4,24 @@
             Calendrier
         </h1>
         <div class="flex">
-            <main class="w-full max-w-[1369px]">
+            <div class="w-full shrink-0">
                 <!--filters-->
                 <form class="flex">
                     <div>
+                        <div class="flex gap-2 items-center"> <i class="fa-solid fa-graduation-cap"></i>
                         <p class="flex gap-2">
-                            <img src="../public/svg/puzzle.svg">
                             Voir par
-                        </p>
+                        </p></div>
+                       
                         <select name="type" id="type" onchange="submitForm()">
                             <option value="class">Classe</option>
                             <option value="teacher">Formateurs</option>
                         </select>
                     </div>
                     <div>
-                        <p>Filtres</p>
+                        <div class="flex gap-2 items-center"><i class="fa-solid fa-sliders"></i>
+                        <p>Filtres</p></div>
+                        
                         <select name="class"  onchange="submitForm()">
                             <option value="class">B3 - DEV</option>
                             <option value="teacher">M2 - GOOFY</option>
@@ -32,46 +35,46 @@
                 </form>
                 <!--fin filters-->
 
-                <!--Calendrier-->
-                <div class="p-5 bg-beige-100 rounded-lg flex flex-col gap-5">
-                    <h2 class="flex gap-2">
-                        <img src="../public/svg/calendar.svg">
-                        Calendrier B3 - DEV - 2024/2025
-                    </h2>
-                    <div id="calendar" class="bg-white rounded-sm">
-                        <table class="w-full">
-                            <thead>
-                                <tr>
-                                    <th>Lundi</th>
-                                    <th>Mardi</th>
-                                    <th>Mercredi</th>
-                                    <th>Jeudi</th>
-                                    <th>Vendredi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <!--une ligne du tableau-->
-                                <tr>
-                                    <td>HTML tables</td>
-                                    <td>HTML tables</td>
-                                    <td>HTML tables</td>
-                                    <td>HTML tables</td>
-                                    <td>HTML tables</td>
-                                </tr>
-                            <!-- fin une ligne du tableau-->
-                            </tbody>
-
-                        </table>
-                    </div>
+                <div class="flex gap-8">
+                    <!--Calendrier-->
+                    <main class="p-5 bg-beige-100 rounded-lg flex flex-col gap-5 max-w-[1369px]">
+                        <h2 class="flex gap-2">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            Calendrier B3 - DEV - 2024/2025
+                        </h2>
+                        <div id="calendar" class="bg-white rounded-sm">
+                            <?php echo $calendrierHtml ?>
+                        </div>
+                    </main>
+                    <!--Fin Calendrier-->
+                    <aside class="w-full">
+                        <div class="w-full bg-beige-100 p-5 rounded-lg">
+                            <h2>Modules</h2>
+                            <div>
+                                <?php for ($i=0; $i<count($modules); $i++) :?>
+                                    <div draggable="true" class="bg-[<?= $modules[$i]["color"] ?>] rounded-lg mb-4 p-5 relative"> 
+                                        <h3 class="text-xl font-semibold"><?= $modules[$i]["nom"] ?> </h3>
+                                        <?php 
+                                            $allocatedDuration = round(floatval($modules[$i]["alocatedDuration"]),1) ;
+                                            $duration = round(floatval($modules[$i]["duration"]),1);
+                                        ?>
+                                        <p><?= $allocatedDuration ?> heures allouées / <?= $modules[$i]["duration"] ?> heures 
+                                        <?php if($allocatedDuration > $duration ):?>
+                                            <span class="absolute -top-3 -right-3 text-red-500 bg-white rounded-lg p-2 w-10 h-10 flex justify-center items-center border-2 border-black">
+                                                <i class="fa-solid fa-triangle-exclamation fa-lg"></i>
+                                            </span>
+                                        <?php endif;?>
+                                        </p>
+                                    </div>
+                                <?php endfor;?>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
-                <!--Fin Calendrier-->
-            </main>
-            <aside>
-
-            </aside>
+            </div>
+            
         </div>
     <!--fin page calendrier-->
-
     </section>
 </body>
 </html>
