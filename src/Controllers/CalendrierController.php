@@ -117,7 +117,7 @@ class CalendrierController extends RenderController{
                     }
 
                     $calendrierHtml .= '<td class="border h-48" data-date="' . $jours[$i]['date'] . '">'; //ouverture td
-                    $calendrierHtml .= '<div class="flex flex-col h-full gap-2"><span class="text-right">'.$jours[$i]['jour'].'</span>';
+                    $calendrierHtml .= '<div ondrop="drop(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right">'.$jours[$i]['jour'].'</span>';
                     $calendrierHtml .= $sessionNames;
                     $calendrierHtml .= '</div>';
                     $calendrierHtml .= '</td>';//fermeture td

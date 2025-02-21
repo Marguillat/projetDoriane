@@ -1,2 +1,8 @@
-RewriteEngine On 
-RewriteRule ^ index.php [QSA,L]
+# Activer le module de réécriture
+RewriteEngine On
+
+# Condition pour exclure le sous-dossier public
+RewriteCond %{REQUEST_URI} !^/projet-Doriane/public/
+
+# Rediriger toutes les autres requêtes vers index.php
+RewriteRule ^ index.php [L]

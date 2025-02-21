@@ -8,13 +8,12 @@ class Router
 {
     const ROUTES = [
         "GET" => [
-            "/projet-Doriane/calendrier/" =>
-                "src\\Controllers\\CalendrierController",
+            "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
             "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
         ],
         "POST" => [
-            "" => "",
-            "" => "",
+            "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
+            "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
         ],
     ];
 
@@ -37,7 +36,7 @@ class Router
         $routeExist = isset(self::ROUTES[$httpMethod][$path]);
 
         if (!$routeExist) {
-            throw new Exception("Error Processing Request", 1);
+            throw new Exception("Cette route n'existe pas", 1);
         }
 
         $controllerName = self::ROUTES[$httpMethod][$path];

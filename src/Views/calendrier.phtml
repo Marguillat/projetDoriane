@@ -52,7 +52,12 @@
                             <h2>Modules</h2>
                             <div>
                                 <?php for ($i=0; $i<count($modules); $i++) :?>
-                                    <div draggable="true" class="bg-[<?= $modules[$i]["color"] ?>] rounded-lg mb-4 p-5 relative"> 
+                                    <div 
+                                        id="<?= $modules[$i]['id']?>" 
+                                        draggable="true" 
+                                        ondragstart="drag(event)" 
+                                        class="bg-[<?= $modules[$i]["color"] ?>] rounded-lg mb-4 p-5 relative"> 
+
                                         <h3 class="text-xl font-semibold"><?= $modules[$i]["nom"] ?> </h3>
                                         <?php 
                                             $allocatedDuration = round(floatval($modules[$i]["alocatedDuration"]),1) ;
