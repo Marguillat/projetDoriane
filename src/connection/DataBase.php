@@ -6,7 +6,8 @@ use Exception;
 use src\connection\Config;
 use PDO;
 
-class DataBase{
+class DataBase
+{
 
     //pas de duplication de connexion
     private static $_instance;
@@ -25,21 +26,20 @@ class DataBase{
         self::$pwd = $dbConfig['pwd'];
     }
 
-    public static function connect(){
+    public static function connect()
+    {
 
-        if(empty(self::$_instance)){
+        if (empty(self::$_instance)) {
             $dbHander = new PDO(
-                'mysql:host='.self::$host.';dbname='.self::$dbname, 
+                'mysql:host=' . self::$host . ';dbname=' . self::$dbname,
                 self::$login,
                 self::$pwd,
             );              //Connexion via PDO
             $dbHander->exec("SET NAMES 'utf8'");                                                                             //Activation de l'UTF8
-            $dbHander->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    
+            $dbHander->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             self::$_instance = $dbHander;
         }
-
         return self::$_instance;
     }
-
 }

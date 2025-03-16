@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/31465505a1.js" crossorigin="anonymous"></script>
-    <script src="http://<?= $_SERVER['HTTP_HOST']?>/projet-Doriane/public/js/draggable.js"></script>
+    <script src="http://<?= $_SERVER['HTTP_HOST'] . '/' . $this->siteInfo['mainPath'] ?>public/js/draggable.js"></script>
     <!--tailwind-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -79,11 +80,11 @@
                         },
                     }
                 },
-                borderRadius:{
-                    'xsm':'5px',
-                    'sm':'10px',
-                    'md':'15px',
-                    'lg':'20px'
+                borderRadius: {
+                    'xsm': '5px',
+                    'sm': '10px',
+                    'md': '15px',
+                    'lg': '20px'
                 }
             }
         }
