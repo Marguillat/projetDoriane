@@ -7,7 +7,7 @@ use src\connection\DataBase;
 
 class LessonController
 {
-  public function updateLessonDate($moduleId, $date, $timeStart, $timeEnd)
+  public function addLessonDate($moduleId, $date, $timeStart, $timeEnd)
   {
     try {
       new DataBase;

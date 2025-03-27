@@ -17,6 +17,7 @@ class Router
         ],
         "POST" => [
             "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
+            "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
             "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
         ],
     ];

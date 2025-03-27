@@ -16,7 +16,7 @@ if (isset($input['moduleId']) && isset($input['date']) && isset($input['time_sta
   $timeEnd = $input['time_end'];
 
   $controller = new LessonController();
-  $response = $controller->updateLessonDate($moduleId, $date, $timeStart, $timeEnd);
+  $response = $controller->addLessonDate($moduleId, $date, $timeStart, $timeEnd);
 
   echo json_encode($response);
 } else {

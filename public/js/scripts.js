@@ -50,3 +50,16 @@ function drop(ev) {
 
     // ev.target.appendChild((document.getElementById(moduleId)).cloneNode(true));
 }
+
+// validations scripts
+document.addEventListener('DOMContentLoaded', () => {
+    const heuresInput = document.getElementById('heures');
+    if (heuresInput) {
+        heuresInput.addEventListener('input', validateNumberInput);
+    }
+});
+
+function validateNumberInput(event) {
+    const input = event.target;
+    input.value = input.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+}

@@ -15,7 +15,7 @@ class CalendrierController extends RenderController{
         parent::__construct();
 
         $this->dbSessions = CalendrierModel::getSessions();
-        $this->dbModules = ModuleModel::getModules();
+        $this->dbModules = ModuleModel::getModulesAlocated();
         
         $calendrierData = $this->creerCalendrierTableau('2024-09-01','2025-08-31',$this->dbSessions);
         $calendrierHtml = $this->buildCalendrierHtml($calendrierData);
