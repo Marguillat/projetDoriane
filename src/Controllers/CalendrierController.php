@@ -23,7 +23,6 @@ class CalendrierController extends RenderController{
 
         require('src/Views/partials/header.phtml');
         require('src/Views/calendrier.phtml');
-        dump($this->dbModules);
     }
 
     /**

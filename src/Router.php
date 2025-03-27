@@ -3,12 +3,16 @@
 namespace src;
 
 use Exception;
+use src\connection\Config;
 
 class Router
 {
+    private $siteConfig;
+
     const ROUTES = [
         "GET" => [
-            "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
+            "/projet-Doriane/calendrier" => "src\\Controllers\\CalendrierController",
+            "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
             "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
         ],
         "POST" => [
@@ -17,7 +21,9 @@ class Router
         ],
     ];
 
-    public function __construct() {}
+    public function __construct() {
+        $this->siteConfig = Config::getConfig('site');
+    }
 
     /**
      * @return string
