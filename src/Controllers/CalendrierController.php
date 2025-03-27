@@ -100,9 +100,12 @@ class CalendrierController extends RenderController{
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($jours[$i])) {
                     $sessionNames = "";
+
+                    $sessionNames .= '<div data-date="' . $jours[$i]['date'] . '" data-timeStart="08:30:00" data-timeEnd="12:30:00" class="session-wrapper flex-1">';
+
                     if (!empty($jours[$i]['sessions'])) {
 
-                        // $sessionNames = $jours[$i]['sessions'][0]['nom'];
+                        
 
                         $ctn = count($jours[$i]['sessions']);
                         for ($j=0; $j < $ctn; $j++) { 
@@ -115,6 +118,13 @@ class CalendrierController extends RenderController{
                             $sessionNames .='</div>';
                         }
                     }
+
+                    $sessionNames .= '</div>'; 
+
+                    // Second time block (13:30:00 - 16:30:00)
+                    $sessionNames .= '<div data-date="' . $jours[$i]['date'] . '" data-timeStart="13:30:00" data-timeEnd="16:30:00" class="session-wrapper flex-1">';
+                    // Add logic for sessions in the second time block if needed
+                    $sessionNames .= '</div>'; // Close the second wrapper div
 
                     $calendrierHtml .= '<td class="border h-48" data-date="' . $jours[$i]['date'] . '">'; //ouverture td
                     $calendrierHtml .= '<div ondrop="drop(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right">'.$jours[$i]['jour'].'</span>';

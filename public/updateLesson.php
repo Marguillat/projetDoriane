@@ -1,7 +1,7 @@
 <?php
 // filepath: a:\programation\php\projetDoriane\updateLesson.php
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use src\Controllers\LessonController;
 

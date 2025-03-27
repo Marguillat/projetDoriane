@@ -10,14 +10,20 @@ function drag(ev) {
 
 function drop(ev) {
     ev.preventDefault();
-
-    let parent = ev.target.parentElement;
-    let date = parent.dataset.date;
-    let timeStart = parent.dataset.timeStart; // Assuming these are available in the dataset
-    let timeEnd = parent.dataset.timeEnd;     // Assuming these are available in the dataset
-
+    let target = ev.target;
+    
+    let date = target.dataset.date;
+    let timeStart = target.dataset.timestart; 
+    let timeEnd = target.dataset.timeend;     
+    console.log(JSON.stringify({
+        moduleId: moduleId,
+        date: date,
+        time_start: timeStart,
+        time_end: timeEnd
+    }));
+    
     // Send AJAX request to update the database
-    fetch('/updateLesson.php', {
+    fetch('http://localhost/projet-Doriane/public/updateLesson.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -29,10 +35,11 @@ function drop(ev) {
             time_end: timeEnd
         })
     })
-    .then(response => response.json())
+    .then(response => response.json()) 
     .then(data => {
         if (data.success) {
             console.log('Database updated successfully');
+            window.location.reload(); 
         } else {
             console.error('Error updating database:', data.message);
         }
