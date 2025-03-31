@@ -4,19 +4,19 @@
     <div class="flex flex-col gap-6">
         <?php dump($modules); ?>
         <?php foreach ($modules as $module): ?>
-        <div 
-            class="p-4 shadow rounded-lg border border-gray-300" 
+        <div
+            class="p-4 shadow rounded-lg border border-gray-300"
             data-id="<?= htmlentities($module['id']) ?>">
             <div class="flex gap-4 items-center">
-            
+
             <div class="flex-1 text-xl font-semibold"><?= htmlentities($module['nom']) ?></div>
-            
+
             <div class="flex-1 text-gray-600">Placeholder for Classe</div>
-            
+
             <div class="flex-1 text-gray-600"><?= $module['duration'] ?> heures</div>
-            
+
             <div class="flex-1 text-gray-600">Placeholder for Statut</div>
-            
+
             <div>
                 <div class="w-12 h-12 rounded-sm" style="background-color: <?= htmlentities($module['color']) ?>;"></div>
             </div>
@@ -28,9 +28,9 @@
 
     <section class="w-full max-w-[400px] sticky top-8">
     <h2 class="text-xl font-bold mt-8 mb-4">Add a New Module</h2>
-    <form 
-        action="<?=$this->siteInfo['protocol'].'://'.$this->siteInfo['host'].'/'.$this->siteInfo['rootUrl'].'/modules';?>" 
-        method="POST" 
+    <form
+        action="<?=$this->siteInfo['protocol'].'://'.$this->siteInfo['host'].'/'.$this->siteInfo['rootUrl'].'modules';?>"
+        method="POST"
         class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
         <!-- Nom Input -->
         <div>
@@ -49,12 +49,12 @@
         <!-- Heures Input -->
         <div>
         <label for="heures" class="block text-sm font-medium text-gray-700">Heures</label>
-        <input 
-            type="number" 
-            id="heures" 
-            name="heures" 
-            step="1" 
-            class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+        <input
+            type="number"
+            id="heures"
+            name="heures"
+            step="1"
+            class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             required>
         </div>
         <!-- Color Input -->
@@ -69,8 +69,8 @@
         </div>
         <!-- Submit Button -->
         <div>
-        <button 
-            type="submit" 
+        <button
+            type="submit"
             class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Add Module</button>
         </div>
     </form>

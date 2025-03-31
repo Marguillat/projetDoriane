@@ -14,21 +14,23 @@ class DataBase
   private static $dbname;
   private static $login;
   private static $pwd;
+  private static $type;
 
   public function __construct()
   {
-    $dbConfig = Config::getConfig("mysql");
+    $dbConfig = Config::getConfig("db");
     self::$host = $dbConfig["host"];
     self::$dbname = $dbConfig["dbname"];
     self::$login = $dbConfig["login"];
     self::$pwd = $dbConfig["pwd"];
+    self::$type = $dbConfig["type"];
   }
 
   public static function connect(): PDO
   {
     if (empty(self::$_instance)) {
       $dbHander = new PDO(
-        "mysql:host=" . self::$host . ";dbname=" . self::$dbname,
+        self::$type . ":host=" . self::$host . ";dbname=" . self::$dbname,
         self::$login,
         self::$pwd
       ); //Connexion via PDO
