@@ -19,12 +19,12 @@ class LessonController
     try {
       new DataBase();
       $db = DataBase::connect();
-      $query = $db->prepare(`
+      $query = $db->prepare("
         INSERT
           INTO lesson
             (id_module, date, time_start, time_end)
           VALUES
-            (:moduleId, :date, :timeStart, :timeEnd)`);
+            (:moduleId, :date, :timeStart, :timeEnd)");
 
       $query->bindParam(":date", $date);
       $query->bindParam(":timeStart", $timeStart);
