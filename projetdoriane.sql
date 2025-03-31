@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 16 mars 2025 à 14:54
+-- Généré le : lun. 31 mars 2025 à 15:30
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `class` (
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_grade` (`id_grade`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `class`
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `grade` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `grade`
@@ -132,66 +132,32 @@ CREATE TABLE IF NOT EXISTS `lesson` (
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_module` (`id_module`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 ;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `lesson`
 --
 
 INSERT INTO `lesson` (`id`, `id_module`, `description`, `is_hp`, `date`, `time_start`, `time_end`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'Lesson 1 on Algebra', 0, '2024-09-16', '08:30:00', '12:30:00', '2025-01-10 14:53:08', 'admin', NULL, NULL),
-(2, 2, 'Lesson 2 on Geometry', 0, '2024-01-16', '00:00:00', '11:00:00', '2025-01-10 14:53:08', 'admin', NULL, NULL),
-(3, 1, 'machin', 0, '2024-01-23', '00:00:00', '12:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
-(4, 1, 'Introduction aux équations linéaires', 0, '2024-09-05', '09:00:00', '12:00:00', '2025-02-20 08:30:00', 'admin', NULL, NULL),
-(5, 2, 'Triangles et théorème de Pythagore', 0, '2024-09-12', '13:30:00', '16:30:00', '2025-02-20 08:31:00', 'admin', NULL, NULL),
-(6, 1, 'Résolution de systèmes d\'équations', 0, '2024-09-25', '09:00:00', '12:00:00', '2025-02-20 08:32:00', 'admin', NULL, NULL),
-(7, 2, 'Cercles et périmètres', 1, '2024-10-04', '14:00:00', '17:00:00', '2025-02-20 08:33:00', 'admin', NULL, NULL),
-(8, 1, 'Fonctions polynomiales', 0, '2024-10-18', '10:00:00', '13:00:00', '2025-02-20 08:34:00', 'admin', NULL, NULL),
-(9, 2, 'Trigonométrie fondamentale', 0, '2024-11-05', '09:30:00', '12:30:00', '2025-02-20 08:35:00', 'admin', NULL, NULL),
-(10, 1, 'Logarithmes et fonctions exponentielles', 1, '2024-11-22', '14:00:00', '17:00:00', '2025-02-20 08:36:00', 'admin', NULL, NULL),
-(11, 2, 'Transformations géométriques', 0, '2024-12-10', '09:00:00', '12:00:00', '2025-02-20 08:37:00', 'admin', NULL, NULL),
-(12, 1, 'Calcul différentiel', 0, '2025-01-15', '13:30:00', '16:30:00', '2025-02-20 08:38:00', 'admin', NULL, NULL),
-(13, 2, 'Géométrie vectorielle', 1, '2025-01-29', '10:00:00', '13:00:00', '2025-02-20 08:39:00', 'admin', NULL, NULL),
-(14, 1, 'Suites et séries', 0, '2025-02-12', '09:00:00', '12:00:00', '2025-02-20 08:40:00', 'admin', NULL, NULL),
-(15, 2, 'Coniques et sections', 0, '2025-02-26', '14:00:00', '17:00:00', '2025-02-20 08:41:00', 'admin', NULL, NULL),
-(16, 1, 'Algèbre linéaire avancée', 1, '2025-03-11', '09:30:00', '12:30:00', '2025-02-20 08:42:00', 'admin', NULL, NULL),
-(17, 2, 'Géométrie dans l\'espace', 0, '2025-04-02', '13:30:00', '16:30:00', '2025-02-20 08:43:00', 'admin', NULL, NULL),
-(18, 1, 'Théorie des nombres', 0, '2025-04-16', '10:00:00', '13:00:00', '2025-02-20 08:44:00', 'admin', NULL, NULL),
-(19, 2, 'Symétries et groupes', 0, '2025-05-07', '09:00:00', '12:00:00', '2025-02-20 08:45:00', 'admin', NULL, NULL),
-(20, 1, 'Optimisation et méthodes numériques', 1, '2025-05-21', '14:00:00', '17:00:00', '2025-02-20 08:46:00', 'admin', NULL, NULL),
-(21, 2, 'Géométrie différentielle', 0, '2025-06-04', '10:30:00', '13:30:00', '2025-02-20 08:47:00', 'admin', NULL, NULL),
-(22, 1, 'Analyse fonctionnelle', 0, '2025-07-02', '09:00:00', '12:00:00', '2025-02-20 08:48:00', 'admin', NULL, NULL),
-(23, 2, 'Topologie élémentaire', 1, '2025-08-13', '14:00:00', '17:00:00', '2025-02-20 08:49:00', 'admin', NULL, NULL),
-(24, 1, 'Théorie des ensembles', 0, '2024-09-09', '08:30:00', '11:30:00', '2025-02-20 09:00:00', 'admin', NULL, NULL),
-(25, 2, 'Géométrie analytique', 0, '2024-09-16', '13:00:00', '16:00:00', '2025-02-20 09:01:00', 'admin', NULL, NULL),
-(26, 1, 'Factorisation polynomiale', 1, '2024-09-23', '09:30:00', '12:30:00', '2025-02-20 09:02:00', 'admin', NULL, NULL),
-(27, 2, 'Transformations isométriques', 0, '2024-09-30', '14:30:00', '17:30:00', '2025-02-20 09:03:00', 'admin', NULL, NULL),
-(28, 1, 'Matrices et déterminants', 0, '2024-10-07', '08:00:00', '11:00:00', '2025-02-20 09:04:00', 'admin', NULL, NULL),
-(29, 2, 'Problèmes de tangente', 1, '2024-10-14', '13:30:00', '16:30:00', '2025-02-20 09:05:00', 'admin', NULL, NULL),
-(30, 1, 'Inégalités mathématiques', 0, '2024-10-21', '09:00:00', '12:00:00', '2025-02-20 09:06:00', 'admin', NULL, NULL),
-(31, 2, 'Courbes paramétriques', 0, '2024-10-28', '14:00:00', '17:00:00', '2025-02-20 09:07:00', 'admin', NULL, NULL),
-(32, 1, 'Équations différentielles', 1, '2024-11-04', '08:30:00', '11:30:00', '2025-02-20 09:08:00', 'admin', NULL, NULL),
-(33, 2, 'Polyèdres réguliers', 0, '2024-11-11', '13:00:00', '16:00:00', '2025-02-20 09:09:00', 'admin', NULL, NULL),
-(34, 1, 'Théorie des graphes', 0, '2024-11-18', '09:30:00', '12:30:00', '2025-02-20 09:10:00', 'admin', NULL, NULL),
-(35, 2, 'Probabilité géométrique', 1, '2024-11-25', '14:30:00', '17:30:00', '2025-02-20 09:11:00', 'admin', NULL, NULL),
-(36, 1, 'Intégration numérique', 0, '2024-12-02', '08:00:00', '11:00:00', '2025-02-20 09:12:00', 'admin', NULL, NULL),
-(37, 2, 'Fractales élémentaires', 0, '2024-12-09', '13:30:00', '16:30:00', '2025-02-20 09:13:00', 'admin', NULL, NULL),
-(38, 1, 'Séries de Fourier', 1, '2024-12-16', '09:00:00', '12:00:00', '2025-02-20 09:14:00', 'admin', NULL, NULL),
-(39, 2, 'Projection stéréographique', 0, '2025-01-06', '14:00:00', '17:00:00', '2025-02-20 09:15:00', 'admin', NULL, NULL),
-(40, 1, 'Cryptographie algébrique', 0, '2025-01-13', '08:30:00', '11:30:00', '2025-02-20 09:16:00', 'admin', NULL, NULL),
-(41, 2, 'Coordonnées polaires', 1, '2025-01-20', '13:00:00', '16:00:00', '2025-02-20 09:17:00', 'admin', NULL, NULL),
-(42, 1, 'Logique mathématique', 0, '2025-01-27', '09:30:00', '12:30:00', '2025-02-20 09:18:00', 'admin', NULL, NULL),
-(43, 2, 'Solides de révolution', 0, '2025-02-03', '14:30:00', '17:30:00', '2025-02-20 09:19:00', 'admin', NULL, NULL),
-(44, 1, 'Groupes et anneaux', 1, '2025-02-10', '08:00:00', '11:00:00', '2025-02-20 09:20:00', 'admin', NULL, NULL),
-(45, 2, 'Géométrie projective', 0, '2025-02-17', '13:30:00', '16:30:00', '2025-02-20 09:21:00', 'admin', NULL, NULL),
-(46, 1, 'Approximation de fonctions', 0, '2025-03-03', '09:00:00', '12:00:00', '2025-02-20 09:22:00', 'admin', NULL, NULL),
-(47, 2, 'Tessellations du plan', 1, '2025-03-17', '14:00:00', '17:00:00', '2025-02-20 09:23:00', 'admin', NULL, NULL),
-(48, 1, 'Méthodes asymptotiques', 0, '2025-03-31', '08:30:00', '11:30:00', '2025-02-20 09:24:00', 'admin', NULL, NULL),
-(49, 2, 'Géométrie hyperbolique', 0, '2025-04-14', '13:00:00', '16:00:00', '2025-02-20 09:25:00', 'admin', NULL, NULL),
-(50, 1, 'Théorie de Galois', 1, '2025-04-28', '09:30:00', '12:30:00', '2025-02-20 09:26:00', 'admin', NULL, NULL),
-(51, 2, 'Sphères de Dandelin', 0, '2025-05-12', '14:30:00', '17:30:00', '2025-02-20 09:27:00', 'admin', NULL, NULL),
-(52, 1, 'Analyse complexe', 0, '2025-05-26', '08:00:00', '11:00:00', '2025-02-20 09:28:00', 'admin', NULL, NULL),
-(53, 2, 'Géométrie non euclidienne', 1, '2025-06-09', '13:30:00', '16:30:00', '2025-02-20 09:29:00', 'admin', NULL, NULL);
+(54, 1, NULL, 0, '2024-09-06', '08:00:00', '12:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(55, 2, NULL, 0, '2024-09-03', '08:00:00', '12:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(56, 2, NULL, 0, '2024-09-04', '08:00:00', '12:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(57, 1, NULL, 0, '2024-09-05', '08:00:00', '12:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(58, 1, NULL, 0, '2024-09-02', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(59, 2, NULL, 0, '2024-09-02', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(60, 1, NULL, 0, '2024-09-05', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(61, 2, NULL, 0, '2024-09-18', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(62, 1, NULL, 0, '2024-09-18', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(63, 1, NULL, 0, '2024-09-13', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(64, 1, NULL, 0, '2024-09-13', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(65, 1, NULL, 0, '2024-09-12', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(66, 1, NULL, 0, '2024-09-12', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(67, 2, NULL, 0, '2024-09-11', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(68, 2, NULL, 0, '2024-09-20', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(69, 2, NULL, 0, '2024-09-04', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(70, 1, NULL, 0, '2024-09-03', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(71, 3, NULL, 0, '2024-09-10', '08:30:00', '12:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL),
+(72, 3, NULL, 0, '2024-09-10', '13:30:00', '16:30:00', '0000-00-00 00:00:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -216,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `module` (
   PRIMARY KEY (`id`),
   KEY `id_class` (`id_class`),
   KEY `id_session` (`id_session`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `module`
@@ -224,7 +190,10 @@ CREATE TABLE IF NOT EXISTS `module` (
 
 INSERT INTO `module` (`id`, `id_class`, `id_session`, `nom`, `description`, `duration`, `color`, `is_option`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
 (1, 1, 1, 'Module 1A', 'Description for Module 1A', 40, '#FF5733', 0, '2025-01-10 14:53:08', 'admin', NULL, NULL),
-(2, 2, 2, 'Module 2B', 'Description for Module 2B', 35, '#33FF57', 1, '2025-01-10 14:53:08', 'admin', NULL, NULL);
+(2, 2, 2, 'Module 2B', 'Description for Module 2B', 35, '#33FF57', 1, '2025-01-10 14:53:08', 'admin', NULL, NULL),
+(3, 3, 1, 'Caca boudin', NULL, 34, '#3a48f8', 1, '0000-00-00 00:00:00', NULL, NULL, NULL),
+(4, 3, 1, 'fqsdfq', NULL, 0, '#72a8e6', 0, '0000-00-00 00:00:00', NULL, NULL, NULL),
+(5, 3, 1, 'qsdf', NULL, 1, '#0a5051', 1, '0000-00-00 00:00:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `module_teacher` (
   PRIMARY KEY (`id`),
   KEY `id_teacher` (`id_teacher`),
   KEY `id_module` (`id_module`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `module_teacher`
@@ -267,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `session`
@@ -303,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `teacher`
