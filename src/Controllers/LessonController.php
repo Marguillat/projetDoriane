@@ -7,7 +7,14 @@ use src\connection\DataBase;
 
 class LessonController
 {
-  public function addLessonDate($moduleId, $date, $timeStart, $timeEnd)
+  /**
+   * @param mixed $moduleId
+   * @param mixed $date
+   * @param mixed $timeStart
+   * @param mixed $timeEnd
+   * @return array<string,bool>|array<string,mixed>
+   */
+  public function addLessonDate($moduleId, $date, $timeStart, $timeEnd): array
   {
     try {
       new DataBase();
