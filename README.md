@@ -6,6 +6,7 @@ Requirements :
 - avoir Composer d'installé
 
 - Base de données (MySQL ou PostgreSQL), locale ou distante
+  - des template de base de données se trouvent dans le dossier `/db`
 
 ----
 ### Clonage du répository distant
