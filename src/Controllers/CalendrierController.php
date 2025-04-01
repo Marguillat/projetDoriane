@@ -35,6 +35,8 @@ class CalendrierController extends RenderController
    *
    * @param string $dateDebut Date de début au format 'YYYY-MM-DD'
    * @param string $dateFin Date de fin au format 'YYYY-MM-DD'
+   * @param array $sessions Tableau des sessions à ajouter au calendrier
+   * @return array Tableau des semaines avec les jours et sessions
    */
   private function creerCalendrierTableau($dateDebut, $dateFin, $sessions)
   {
@@ -90,6 +92,12 @@ class CalendrierController extends RenderController
     return $semaines;
   }
 
+  /**
+   * Génère le HTML pour afficher le calendrier
+   *
+   * @param array $tableauSemaines Tableau des semaines avec les jours et sessions
+   * @return string HTML généré pour le calendrier
+   */
   private function buildCalendrierHtml($tableauSemaines)
   {
     // Générer le tableau HTML
@@ -153,7 +161,7 @@ class CalendrierController extends RenderController
           $calendrierHtml .=
             '<td class="border h-48" data-date="' . $jours[$i]["date"] . '">'; //ouverture td
           $calendrierHtml .=
-            '<div ondrop="drop(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right">' .
+            '<div ondrop="dropAdd(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right">' .
             $jours[$i]["jour"] .
             "</span>";
           $calendrierHtml .= $sessionNames;

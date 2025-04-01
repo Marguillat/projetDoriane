@@ -2,24 +2,38 @@
     <section class="p-6 max-w-[1369px] w-full">
     <h1 class="text-2xl font-bold mb-4">Modules</h1>
     <div class="flex flex-col gap-6">
-        <?php dump($modules); ?>
         <?php foreach ($modules as $module): ?>
         <div
             class="p-4 shadow rounded-lg border border-gray-300"
-            data-id="<?= htmlentities($module['id']) ?>">
+            data-id="<?= htmlentities($module["id"]) ?>">
             <div class="flex gap-4 items-center">
 
-            <div class="flex-1 text-xl font-semibold"><?= htmlentities($module['nom']) ?></div>
+            <div class="flex-1 text-xl font-semibold"><?= htmlentities(
+              $module["nom"]
+            ) ?></div>
 
             <div class="flex-1 text-gray-600">Placeholder for Classe</div>
 
-            <div class="flex-1 text-gray-600"><?= $module['duration'] ?> heures</div>
+            <div class="flex-1 text-gray-600"><?= $module[
+              "duration"
+            ] ?> heures</div>
 
             <div class="flex-1 text-gray-600">Placeholder for Statut</div>
 
             <div>
-                <div class="w-12 h-12 rounded-sm" style="background-color: <?= htmlentities($module['color']) ?>;"></div>
+                <div class="w-12 h-12 rounded-sm" style="background-color: <?= htmlentities(
+                  $module["color"]
+                ) ?>;"></div>
             </div>
+            <form method="POST">
+              <input name="_method" type="hidden" value="delete"></input>
+              <input name="module-id" type="hidden" value="<?= htmlentities(
+                $module["id"]
+              ) ?>"></input>
+              <button>
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
             </div>
         </div>
         <?php endforeach; ?>
@@ -29,9 +43,16 @@
     <section class="w-full max-w-[400px] sticky top-8">
     <h2 class="text-xl font-bold mt-8 mb-4">Add a New Module</h2>
     <form
-        action="<?=$this->siteInfo['protocol'].'://'.$this->siteInfo['host'].'/'.$this->siteInfo['rootUrl'].'modules';?>"
+        action="<?= $this->siteInfo["protocol"] .
+          "://" .
+          $this->siteInfo["host"] .
+          $this->siteInfo["port"] .
+          "/" .
+          $this->siteInfo["rootUrl"] .
+          "modules" ?>"
         method="POST"
         class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
+          <input name="_method" type="hidden" value="post"></input>
         <!-- Nom Input -->
         <div>
         <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
@@ -42,7 +63,10 @@
         <label for="classe" class="block text-sm font-medium text-gray-700">Classe</label>
         <select id="classe" name="classe" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
             <?php foreach ($classes as $c): ?>
-                <option value="<?= htmlentities($c['id']) ?>"><?= htmlentities($c['nom']) ?></option>
+                <option
+                  value="<?= htmlentities($c["id"]) ?>">
+                    <?= htmlentities($c["nom"]) ?>
+                </option>
             <?php endforeach; ?>
         </select>
         </div>
@@ -60,7 +84,10 @@
         <!-- Color Input -->
         <div>
         <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
-        <input type="color" id="color" name="color" value="<?= sprintf('#%06X', mt_rand(0, 0xFFFFFF)) ?>" class="mt-1 block w-12 h-12 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+        <input type="color" id="color" name="color" value="<?= sprintf(
+          "#%06X",
+          mt_rand(0, 0xffffff)
+        ) ?>" class="mt-1 block w-12 h-12 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
         </div>
         <!-- Toggle Switch Input -->
         <div class="flex items-center">

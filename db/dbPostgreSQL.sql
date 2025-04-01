@@ -1084,7 +1084,7 @@ ALTER TABLE class ADD CONSTRAINT fk_grade FOREIGN KEY (id_grade) REFERENCES grad
 --
 -- Contraintes pour la table lesson
 --
-ALTER TABLE lesson ADD CONSTRAINT fk_module FOREIGN KEY (id_module) REFERENCES module (id);
+ALTER TABLE lesson ADD CONSTRAINT fk_module FOREIGN KEY (id_module) REFERENCES module (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table module

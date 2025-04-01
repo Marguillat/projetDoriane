@@ -8,7 +8,7 @@ function drag(ev) {
   moduleId = ev.target.id;
 }
 
-function drop(ev) {
+function dropAdd(ev) {
   ev.preventDefault();
   let target = ev.target;
 
