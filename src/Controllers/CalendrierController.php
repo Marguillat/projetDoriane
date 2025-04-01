@@ -124,11 +124,15 @@ class CalendrierController extends RenderController
           $sessionNames .=
             '<div data-date="' .
             $jours[$i]["date"] .
-            '" data-timeStart="08:30:00" data-timeEnd="12:30:00" class="session-wrapper flex-1">';
+            '" data-timeStart="08:30:00" data-timeEnd="12:30:00" class="session-wrapper flex-1 border-b">';
 
           if (!empty($jours[$i]["sessions"])) {
             $ctn = count($jours[$i]["sessions"]);
             for ($j = 0; $j < $ctn; $j++) {
+              //populates only if afternoon
+              if ($jours[$i]["sessions"][$j]["time_start"] > "12:00:00") {
+                continue;
+              }
               $name = $jours[$i]["sessions"][$j]["nom"];
               $color = $jours[$i]["sessions"][$j]["color"];
               $heures =
@@ -139,7 +143,7 @@ class CalendrierController extends RenderController
                 '<div class="w-full bg-[' .
                 $color .
                 '] flex-1 rounded-lg p-2">';
-              $sessionNames .= '<span class="text-xs">' . $heures . "</span>";
+              $sessionNames .= '<span class="text-xs ">' . $heures . "</span>";
               $sessionNames .=
                 '<div class="text-sm font-semibold text-center">' .
                 $name .
@@ -155,13 +159,37 @@ class CalendrierController extends RenderController
             '<div data-date="' .
             $jours[$i]["date"] .
             '" data-timeStart="13:30:00" data-timeEnd="16:30:00" class="session-wrapper flex-1">';
-          // Add logic for sessions in the second time block if needed
+          if (!empty($jours[$i]["sessions"])) {
+            $ctn = count($jours[$i]["sessions"]);
+            for ($j = 0; $j < $ctn; $j++) {
+              //populates only if afternoon
+              if ($jours[$i]["sessions"][$j]["time_start"] < "12:00:00") {
+                continue;
+              }
+              $name = $jours[$i]["sessions"][$j]["nom"];
+              $color = $jours[$i]["sessions"][$j]["color"];
+              $heures =
+                $jours[$i]["sessions"][$j]["time_start"] .
+                " - " .
+                $jours[$i]["sessions"][$j]["time_end"];
+              $sessionNames .=
+                '<div class="h-full flex flex-col justify-between w-full bg-[' .
+                $color .
+                '] flex-1 rounded-lg p-2">';
+              $sessionNames .= '<span class="text-xs">' . $heures . "</span>";
+              $sessionNames .=
+                '<div class="text-sm font-semibold text-center">' .
+                $name .
+                "</div>";
+              $sessionNames .= "</div>";
+            }
+          }
           $sessionNames .= "</div>"; // Close the second wrapper div
 
           $calendrierHtml .=
             '<td class="border h-48" data-date="' . $jours[$i]["date"] . '">'; //ouverture td
           $calendrierHtml .=
-            '<div ondrop="dropAdd(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right">' .
+            '<div ondrop="dropAdd(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right underline">' .
             $jours[$i]["jour"] .
             "</span>";
           $calendrierHtml .= $sessionNames;

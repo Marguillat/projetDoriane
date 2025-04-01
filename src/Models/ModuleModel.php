@@ -35,7 +35,7 @@ class ModuleModel
         "SELECT
                     m.id, m.nom, m.description, m.duration,
                         (SELECT
-                        SUM((lesson.time_end - lesson.time_start)/10000)
+                        SUM((lesson.time_end - lesson.time_start))
                         FROM lesson INNER JOIN module ON lesson.id_module = module.id
                         WHERE m.id = lesson.id_module
                         GROUP BY module.id
