@@ -31,7 +31,7 @@ composer install
 ### Configuration des informations principales
 
 - Dupliquer le fichier `config.exemple.ini` qui se trouve à la racine du projet.
-- Renomer se fichier en `config.ini`
+- Renommer ce fichier en `config.ini`
 - Modifier les données pour qu'elles correspondent à votre configuration
 
 ```ini
