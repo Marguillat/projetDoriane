@@ -15,6 +15,7 @@ class DataBase
   private static $login;
   private static $pwd;
   private static $type;
+  private static $port;
 
   public function __construct()
   {
@@ -24,6 +25,7 @@ class DataBase
     self::$login = $dbConfig["login"];
     self::$pwd = $dbConfig["pwd"];
     self::$type = $dbConfig["type"];
+    self::$port = $dbConfig["port"];
   }
 
   public static function connect(): PDO

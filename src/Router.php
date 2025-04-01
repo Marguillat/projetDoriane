@@ -8,23 +8,41 @@ use src\connection\Config;
 class Router
 {
   private $siteConfig;
-
-  const ROUTES = [
-    "GET" => [
-      "/projet-Doriane/calendrier" => "src\\Controllers\\CalendrierController",
-      "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
-      "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
-    ],
-    "POST" => [
-      "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
-      "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
-      "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
-    ],
-  ];
+  private $routes;
+  // const ROUTES = [
+  //   "GET" => [
+  //     "/projet-Doriane/calendrier" => "src\\Controllers\\CalendrierController",
+  //     "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
+  //     "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
+  //   ],
+  //   "POST" => [
+  //     "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
+  //     "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
+  //     "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
+  //   ],
+  // ];
 
   public function __construct()
   {
     $this->siteConfig = Config::getConfig("site");
+    $this->routes = [
+      "GET" => [
+        $this->siteConfig["rootUrl"] .
+        "/calendrier" => "src\\Controllers\\CalendrierController",
+        $this->siteConfig["rootUrl"] .
+        "/modules" => "src\\Controllers\\ModulesController",
+        $this->siteConfig["rootUrl"] .
+        "/" => "src\\Controllers\\CalendrierController",
+      ],
+      "POST" => [
+        $this->siteConfig["rootUrl"] .
+        "/calendrier/" => "src\\Controllers\\CalendrierController",
+        $this->siteConfig["rootUrl"] .
+        "/modules" => "src\\Controllers\\ModulesController",
+        $this->siteConfig["rootUrl"] .
+        "/" => "src\\Controllers\\CalendrierController",
+      ],
+    ];
   }
 
   /**
@@ -41,13 +59,13 @@ class Router
     }
     $path = $params["path"];
 
-    $routeExist = isset(self::ROUTES[$httpMethod][$path]);
+    $routeExist = isset($this->routes[$httpMethod][$path]);
 
     if (!$routeExist) {
       throw new Exception("Cette route n'existe pas", 1);
     }
 
-    $controllerName = self::ROUTES[$httpMethod][$path];
+    $controllerName = $this->routes[$httpMethod][$path];
 
     return $controllerName;
   }
