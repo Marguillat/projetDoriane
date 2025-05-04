@@ -16,23 +16,27 @@ class Router
     $this->routes = [
       "GET" => [
         $this->siteConfig["rootUrl"] .
-        "/formateurs" => "src\\Controllers\\TeachersController",
+          "/formateurs" => "src\\Controllers\\TeachersController",
         $this->siteConfig["rootUrl"] .
-        "/calendrier" => "src\\Controllers\\CalendrierController",
+          "/calendrier" => "src\\Controllers\\CalendrierController",
         $this->siteConfig["rootUrl"] .
-        "/modules" => "src\\Controllers\\ModulesController",
+          "/modules" => "src\\Controllers\\ModulesController",
         $this->siteConfig["rootUrl"] .
-        "/" => "src\\Controllers\\CalendrierController",
+          "/classes-sessions" => "src\\Controllers\\ClassSessionController",
+        $this->siteConfig["rootUrl"] .
+          "/" => "src\\Controllers\\CalendrierController",
       ],
       "POST" => [
         $this->siteConfig["rootUrl"] .
-        "/formateurs" => "src\\Controllers\\TeachersController",
+          "/formateurs" => "src\\Controllers\\TeachersController",
         $this->siteConfig["rootUrl"] .
-        "/calendrier/" => "src\\Controllers\\CalendrierController",
+          "/calendrier/" => "src\\Controllers\\CalendrierController",
         $this->siteConfig["rootUrl"] .
-        "/modules" => "src\\Controllers\\ModulesController",
+          "/modules" => "src\\Controllers\\ModulesController",
         $this->siteConfig["rootUrl"] .
-        "/" => "src\\Controllers\\CalendrierController",
+          "/classes-sessions" => "src\\Controllers\\ClassSessionController",
+        $this->siteConfig["rootUrl"] .
+          "/" => "src\\Controllers\\CalendrierController",
       ],
     ];
   }

@@ -1,27 +1,28 @@
 <?php
-require(__DIR__.'/metaHead.phtml');
+require(__DIR__ . '/metaHead.phtml');
 ?>
+
 <body>
     <!-- Header -->
     <header class="h-24 bg-beige-100 flex flex-col justify-center">
         <nav class="w-full flex justify-evenly">
             <!-- nav element -->
-            <a href="<?=$this->siteInfo['protocol'].'://'.$this->siteInfo['host'].$this->siteInfo['port'].'/'.$this->siteInfo['rootUrl'].'calendrier';?>" class="active p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+            <a href="<?= $this->siteInfo['protocol'] . '://' . $this->siteInfo['host'] . $this->siteInfo['port'] . '/' . $this->siteInfo['rootUrl'] . 'calendrier'; ?>" class="active p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
                 <i class="fa-solid fa-calendar-days"></i>
                 <p>Calendriers</p>
             </a>
             <!-- fin nav element -->
-            <a href="<?=$this->siteInfo['protocol'].'://'.$this->siteInfo['host'].$this->siteInfo['port'].'/'.$this->siteInfo['rootUrl'].'formateurs' ;?>" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+            <a href="<?= $this->siteInfo['protocol'] . '://' . $this->siteInfo['host'] . $this->siteInfo['port'] . '/' . $this->siteInfo['rootUrl'] . 'formateurs'; ?>" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
                 <i class="fa-solid fa-user"></i>
                 <p>Formateurs</p>
             </a>
-            <a href="<?=$this->siteInfo['protocol'].'://'.$this->siteInfo['host'].$this->siteInfo['port'].'/'.$this->siteInfo['rootUrl'].'modules';?>" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+            <a href="<?= $this->siteInfo['protocol'] . '://' . $this->siteInfo['host'] . $this->siteInfo['port'] . '/' . $this->siteInfo['rootUrl'] . 'modules'; ?>" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
                 <i class="fa-solid fa-shapes"></i>
                 <p>Modules</p>
             </a>
-            <a href="/" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
+            <a href="<?= $this->siteInfo['protocol'] . '://' . $this->siteInfo['host'] . $this->siteInfo['port'] . '/' . $this->siteInfo['rootUrl'] . 'classes-sessions'; ?>" class=" p-2.5 rounded-md flex gap-4 w-1/5 text-2xl">
                 <i class="fa-solid fa-graduation-cap"></i>
-                <p>Classes</p>
+                <p>Classes/sessions</p>
             </a>
         </nav>
     </header>

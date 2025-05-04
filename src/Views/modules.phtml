@@ -1,100 +1,97 @@
 <div class="flex gap-4 p-4">
-    <section class="p-6 max-w-[1369px] w-full">
+  <section class="p-6 max-w-[1369px] w-full">
     <h1 class="text-2xl font-bold mb-4">Modules</h1>
     <div class="flex flex-col gap-6">
 
-        <?php foreach ($modules as $module): ?>
+      <?php foreach ($modules as $module): ?>
         <div
-            class="p-4 shadow rounded-lg border border-gray-300"
-            data-id="<?= htmlentities($module["id"]) ?>">
-            <div class="flex gap-4 items-center">
-
-            <div class="flex-1 text-xl font-semibold"><?= htmlentities(
-              $module["nom"]
-            ) ?></div>
-
+          class="p-4 shadow rounded-lg border border-gray-300"
+          data-id="<?= htmlentities($module["id"]) ?>">
+          <div class="flex gap-4 items-center">
+            <div class="flex-1 text-xl font-semibold">
+              <?= htmlentities(
+                $module["nom"]
+              ) ?></div>
             <div class="flex-1 text-gray-600">Placeholder for Classe</div>
-
-            <div class="flex-1 text-gray-600"><?= $module[
-              "duration"
-            ] ?> heures</div>
-
+            <div class="flex-1 text-gray-600"><?= $module["duration"] ?> heures</div>
             <div class="flex-1 text-gray-600">Placeholder for Statut</div>
-
             <div>
-                <div class="w-12 h-12 rounded-sm" style="background-color: <?= htmlentities(
-                  $module["color"]
-                ) ?>;"></div>
+              <div class="w-12 h-12 rounded-sm" style="background-color: 
+              <?= htmlentities(
+                $module["color"]
+              ) ?>;"></div>
             </div>
             <form method="POST">
               <input name="_method" type="hidden" value="delete"></input>
-              <input name="module-id" type="hidden" value="<?= htmlentities(
+              <input name="module-id" type="hidden" value="
+              <?= htmlentities(
                 $module["id"]
               ) ?>"></input>
               <button class="flex w-10 h-10 rounded-[100%] items-center justify-center hover:bg-red-200 group ">
                 <i class="fa-solid fa-trash group-hover:text-red-500"></i>
               </button>
             </form>
-            </div>
+          </div>
         </div>
-        <?php endforeach; ?>
+      <?php endforeach; ?>
     </div>
-    </section>
+  </section>
 
-    <section class="w-full max-w-[400px] sticky top-8">
-    <h2 class="text-xl font-bold mt-8 mb-4">Add a New Module</h2>
+  <section class="w-full max-w-[400px] sticky top-8">
+    <h2 class="text-xl font-bold mt-8 mb-4">Ajouter un module</h2>
     <form
-        action="<?= $this->baseUrl . "modules" ?>"
-        method="POST"
-        class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
-          <input name="_method" type="hidden" value="post"></input>
-        <!-- Nom Input -->
-        <div>
+      action="<?= $this->baseUrl . "modules" ?>"
+      method="POST"
+      class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
+      <input name="_method" type="hidden" value="post"></input>
+      <!-- Nom Input -->
+      <div>
         <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
         <input type="text" id="nom" name="nom" class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-        </div>
-        <!-- Classe Input -->
-        <div>
+      </div>
+      <!-- Classe Input -->
+      <div>
         <label for="classe" class="block text-sm font-medium text-gray-700">Classe</label>
         <select id="classe" name="classe" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-            <?php foreach ($classes as $c): ?>
-                <option
-                  value="<?= htmlentities($c["id"]) ?>">
-                    <?= htmlentities($c["nom"]) ?>
-                </option>
-            <?php endforeach; ?>
+          <?php foreach ($classes as $c): ?>
+            <option
+              value="<?= htmlentities($c["id"]) ?>">
+              <?= htmlentities($c["nom"]) ?>
+            </option>
+          <?php endforeach; ?>
         </select>
-        </div>
-        <!-- Heures Input -->
-        <div>
+      </div>
+      <!-- Heures Input -->
+      <div>
         <label for="heures" class="block text-sm font-medium text-gray-700">Heures</label>
         <input
-            type="number"
-            id="heures"
-            name="heures"
-            step="1"
-            class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            required>
-        </div>
-        <!-- Color Input -->
-        <div>
+          type="number"
+          id="heures"
+          name="heures"
+          step="1"
+          class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          required>
+      </div>
+      <!-- Color Input -->
+      <div>
         <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
-        <input type="color" id="color" name="color" value="<?= sprintf(
+        <input type="color" id="color" name="color" value="
+        <?= sprintf(
           "#%06X",
           mt_rand(0, 0xffffff)
         ) ?>" class="mt-1 block w-12 h-12 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-        </div>
-        <!-- Toggle Switch Input -->
-        <div class="flex items-center">
-            <label for="is_option" class="block text-sm font-medium text-gray-700 mr-2">Est une option</label>
-            <input type="checkbox" id="is_option" name="is_option" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-        </div>
-        <!-- Submit Button -->
-        <div>
+      </div>
+      <!-- Toggle Switch Input -->
+      <div class="flex items-center">
+        <label for="is_option" class="block text-sm font-medium text-gray-700 mr-2">Est une option</label>
+        <input type="checkbox" id="is_option" name="is_option" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+      </div>
+      <!-- Submit Button -->
+      <div>
         <button
-            type="submit"
-            class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Ajouter</button>
-        </div>
+          type="submit"
+          class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Ajouter</button>
+      </div>
     </form>
-    </section>
+  </section>
 </div>
