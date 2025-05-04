@@ -32,7 +32,64 @@ class TeacherModel
     }
   }
 
-  public static function addTeacher(): void {}
+  public static function addTeacher($newTeacher): void
+  {
+    try {
+      $db = DataBase::connect();
+      $query = $db->prepare("INSERT 
+        INTO teacher  
+          (lastname,firstname,email)
+        VALUES 
+          (:lastname,:firstname,:email)
+      ");
+
+      $query->bindParam(":lastname", $newTeacher["nom"]);
+      $query->bindParam(":firstname", $newTeacher["prenom"]);
+      $query->bindParam(":email", $newTeacher["email"]);
+
+      $query->execute();
+    } catch (\Throwable $th) {
+      throw $th;
+    }
+  }
+
+  public static function deleteTeacher($teacherId): void
+  {
+    try {
+      $db = DataBase::connect();
+      $query = $db->prepare("DELETE FROM teacher WHERE id = :id ");
+
+      $query->bindParam(":id", $teacherId);
+
+      $query->execute();
+    } catch (\Throwable $th) {
+      throw $th;
+    }
+  }
+
+  public static function addModulesToTeacher($teacherId, $moduleIds): void
+  {
+    try {
+      $db = DataBase::connect();
+
+      // on supprime tout avant de tout réécrire
+      $deleteQuery = $db->prepare("DELETE FROM module_teacher WHERE id_teacher = :teacherId");
+      $deleteQuery->bindParam(":teacherId", $teacherId);
+      $deleteQuery->execute();
+
+      if (!empty($moduleIds)) {
+        $insertQuery = $db->prepare("INSERT INTO module_teacher (id_teacher, id_module) VALUES (:teacherId, :moduleId)");
+
+        foreach ($moduleIds as $moduleId) {
+          $insertQuery->bindParam(":teacherId", $teacherId);
+          $insertQuery->bindParam(":moduleId", $moduleId);
+          $insertQuery->execute();
+        }
+      }
+    } catch (\Throwable $th) {
+      throw $th;
+    }
+  }
 }
 
 // SELECT

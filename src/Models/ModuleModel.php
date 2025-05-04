@@ -30,25 +30,71 @@ class ModuleModel
     }
   }
   /**
+   * @param array $filters Optional filters to apply
    * @return array
    */
-  public static function getModulesAlocated(): array
+  public static function getModulesAlocated($filters = []): array
   {
     try {
       $db = DataBase::connect();
-      $query = $db->prepare(
-        "SELECT
-                    m.id, m.nom, m.description, m.duration,
-                        (SELECT
-                        SUM((lesson.time_end - lesson.time_start))
-                        FROM lesson INNER JOIN module ON lesson.id_module = module.id
-                        WHERE m.id = lesson.id_module
-                        GROUP BY module.id
-                        )as alocatedDuration,
-                    m.color,m.is_option
-                    FROM module as m;
-            "
-      );
+      
+      $sql = "SELECT
+                m.id, m.nom, m.description, m.duration,
+                    (SELECT
+                    SUM((lesson.time_end - lesson.time_start))
+                    FROM lesson INNER JOIN module ON lesson.id_module = module.id
+                    WHERE m.id = lesson.id_module
+                    GROUP BY module.id
+                    )as alocatedDuration,
+                m.color, m.is_option
+                FROM module as m
+                INNER JOIN class as c ON m.id_class = c.id
+                INNER JOIN grade as g ON c.id_grade = g.id
+                INNER JOIN session as s ON m.id_session = s.id";
+      
+      $whereConditions = [];
+      
+      // Add filter conditions
+      if (!empty($filters['class'])) {
+        $whereConditions[] = "c.id = :class_id";
+      }
+      
+      if (!empty($filters['grade'])) {
+        $whereConditions[] = "g.id = :grade_id";
+      }
+      
+      if (!empty($filters['session'])) {
+        $whereConditions[] = "s.id = :session_id";
+      }
+      
+      if (!empty($filters['teacher'])) {
+        $sql .= " INNER JOIN module_teacher as mt ON m.id = mt.id_module";
+        $whereConditions[] = "mt.id_teacher = :teacher_id";
+      }
+      
+      // Add WHERE clause if there are conditions
+      if (!empty($whereConditions)) {
+        $sql .= " WHERE " . implode(" AND ", $whereConditions);
+      }
+      
+      $query = $db->prepare($sql);
+      
+      // Bind parameters if they exist
+      if (!empty($filters['class'])) {
+        $query->bindParam(':class_id', $filters['class']);
+      }
+      
+      if (!empty($filters['grade'])) {
+        $query->bindParam(':grade_id', $filters['grade']);
+      }
+      
+      if (!empty($filters['session'])) {
+        $query->bindParam(':session_id', $filters['session']);
+      }
+      
+      if (!empty($filters['teacher'])) {
+        $query->bindParam(':teacher_id', $filters['teacher']);
+      }
 
       $query->execute();
 

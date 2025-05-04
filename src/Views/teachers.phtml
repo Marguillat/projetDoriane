@@ -1,7 +1,7 @@
 <div class="flex gap-4 p-4">
-    <section class="p-6 max-w-[1369px] w-full">
-      <!-- Display teachers dynamically from $teachers array -->
-      <?php if (!empty($teachers)): ?>
+  <section class="p-6 max-w-[1369px] w-full">
+    <!-- Display teachers dynamically from $teachers array -->
+    <?php if (!empty($teachers)): ?>
       <div class="container mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Les formateurs</h2>
         <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -12,106 +12,132 @@
               <th class="p-3 text-left">Email</th>
               <th class="p-3 text-left">Description</th>
               <th class="p-3 text-left">Modules</th>
-              <th class="p-3 text-left">Hours</th>
+              <th class="p-3 text-left"></th>
             </tr>
           </thead>
           <tbody>
             <?php foreach ($teachers as $teacher): ?>
               <tr class="border-b hover:bg-gray-50 transition-colors">
-                <td class="p-3 text-gray-800"><?= $teacher["firstname"] ??
-                  "N/A" ?></td>
-                <td class="p-3 text-gray-800"><?= $teacher["lastname"] ??
-                  "N/A" ?></td>
-                <td class="p-3 text-blue-600 truncate"><?= $teacher["email"] ??
-                  "N/A" ?></td>
-                <td class="p-3 text-gray-600"><?= $teacher["description"] ??
-                  "No description available" ?></td>
+                <td class="p-3 text-gray-800"><?= $teacher["firstname"] ?? "N/A" ?></td>
+                <td class="p-3 text-gray-800"><?= $teacher["lastname"] ?? "N/A" ?></td>
+                <td class="p-3 text-blue-600 truncate"><?= $teacher["email"] ?? "N/A" ?></td>
+                <td class="p-3 text-gray-600"><?= $teacher["description"] ?? "Pas de description" ?></td>
                 <td class="p-3 text-gray-800 max-w-80">
                   <?php $moduleList = explode(";", $teacher["modulelist"]); ?>
                   <div class="flex gap-2 flex-wrap">
                     <?php foreach ($moduleList as $module): ?>
-                    <?php if (!empty($module)): ?>
-                      <span class="bg-gray-200 p-1 rounded-sm">
-                        <?= $module ?>
-                      </span>
-                    <?php endif; ?>
+                      <?php if (!empty($module)): ?>
+                        <span class="bg-gray-200 p-1 rounded-sm">
+                          <?= $module ?>
+                        </span>
+                      <?php endif; ?>
                     <?php endforeach; ?>
                   </div>
                 </td>
-                <td class="p-3 text-gray-800"><?= $teacher["hours"] ??
-                  "0" ?>h</td>
+                <td class="p-3 flex gap-2">
+                  <button
+                    onclick="openModuleModal(<?= $teacher['id'] ?>, '<?= $teacher['firstname'] ?> <?= $teacher['lastname'] ?>')"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">
+                    Assigner modules
+                  </button>
+                  <form method="POST">
+                    <input name="_method" type="hidden" value="delete"></input>
+                    <input name="teacher-id"
+                      type="hidden"
+                      value="<?= htmlentities($teacher["id"]) ?>">
+                    </input>
+                    <button
+                      class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md">
+                      <i class="fa-solid fa-trash group-hover:text-red-900"></i>
+                    </button>
+                  </form>
+
+                </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
       </div>
-      <?php else: ?>
-        <div class="container mx-auto">
-          <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 my-4" role="alert">
-            <p>No teachers found in the database.</p>
-          </div>
+    <?php else: ?>
+      <div class="container mx-auto">
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 my-4" role="alert">
+          <p>Aucun formateur trouvé dans la base de données</p>
         </div>
-      <?php endif; ?>
-    </section>
-    <section class="w-full max-w-[400px] sticky top-8">
+      </div>
+    <?php endif; ?>
+  </section>
+
+  <!-- Add Teacher Form Section -->
+  <section class="w-full max-w-[400px] sticky top-8">
     <h2 class="text-xl font-bold mt-8 mb-4">Ajouter un nouveau formateur</h2>
     <form
-        action="<?= $this->baseUrl . "formateurs" ?>"
-        method="POST"
-        class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
-          <input name="_method" type="hidden" value="post"></input>
-        <!-- Nom-prenom Input -->
-        <div class="flex gap-4">
-          <div>
+      action="<?= $this->baseUrl . "formateurs" ?>"
+      method="POST"
+      class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
+      <input name="_method" type="hidden" value="post"></input>
+      <!-- Nom-prenom Input -->
+      <div class="flex gap-4">
+        <div>
           <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
           <input type="text" id="prenom" name="prenom" class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-          </div>
-          <div>
+        </div>
+        <div>
           <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
           <input type="text" id="nom" name="nom" class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-          </div>
         </div>
+      </div>
 
-        <!-- Classe Input -->
-        <div>
-        <label for="classe" class="block text-sm font-medium text-gray-700">Classe</label>
-        <select id="classe" name="classe" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-            <?php foreach ($classes as $c): ?>
-                <option
-                  value="<?= htmlentities($c["id"]) ?>">
-                    <?= htmlentities($c["nom"]) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        </div>
-        <div>
-        <label for="module" class="block text-sm font-medium text-gray-700">Module</label>
-        <select id="module" name="module" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-            <?php foreach ($modules as $m): ?>
-                <option
-                  value="<?= htmlentities($m["id"]) ?>">
-                    <?= htmlentities($m["nom"]) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        </div>
-        <!-- Heures Input -->
-        <div>
-        <label for="heures" class="block text-sm font-medium text-gray-700">Heures</label>
-        <input
-            type="number"
-            id="heures"
-            name="heures"
-            step="1"
-            class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            required>
-        </div>
-        <!-- Submit Button -->
-        <div>
+      <!-- email imput -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" id="email" name="email" class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
         <button
-            type="submit"
-            class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Ajouter</button>
-        </div>
+          type="submit"
+          class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Ajouter</button>
+      </div>
     </form>
-    </section>
+  </section>
+</div>
+
+<!-- Modal module -->
+<div id="moduleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
+    <h2 id="modalTitle" class="text-xl font-bold mb-4">Assigner des modules à </h2>
+    <form id="moduleForm" action="<?= $this->baseUrl . "formateurs" ?>" method="POST" class="flex flex-col gap-4">
+      <input name="_method" type="hidden" value="update">
+      <input id="teacherId" name="teacher-id" type="hidden" value="">
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Sélectionner les modules</label>
+        <div class="max-h-60 overflow-y-auto border border-gray-300 rounded-md p-2">
+          <?php foreach ($modules as $module): ?>
+            <div class="flex items-center mb-2">
+              <input
+                type="checkbox"
+                id="module-<?= $module['id'] ?>"
+                name="modules[]"
+                value="<?= $module['id'] ?>"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-md">
+              <label for="module-<?= $module['id'] ?>" class="ml-2 block text-sm text-gray-900">
+                <?= $module['nom'] ?> (<?php $module['classname'] ?>)
+              </label>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeModuleModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md">
+          Annuler
+        </button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

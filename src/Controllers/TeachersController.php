@@ -24,20 +24,24 @@ class TeachersController extends RenderController
       $this->newPost = $_POST;
     }
 
-    if ($_POST["_method"] == "post") {
+    if (isset($_POST["_method"]) && $_POST["_method"] == "post") {
       if (
         !empty($this->newPost) &&
         isset($this->newPost["prenom"]) &&
-        isset($this->newPost["classe"]) &&
-        isset($this->newPost["module"]) &&
-        isset($this->newPost["heures"]) &&
+        isset($this->newPost["email"]) &&
         isset($this->newPost["nom"])
       ) {
-        TeacherModel::addTeachers($this->newPost);
+        TeacherModel::addTeacher($this->newPost);
       }
-    } elseif ($_POST["_method"] == "delete") {
-      if (!empty($this->newPost) && isset($this->newPost["module-id"])) {
-        ModuleModel::deleteModule($this->newPost["module-id"]);
+    } elseif (isset($_POST["_method"]) && $_POST["_method"] == "delete") {
+      if (!empty($this->newPost) && isset($this->newPost["teacher-id"])) {
+        TeacherModel::deleteTeacher($this->newPost["teacher-id"]);
+      }
+    } elseif (isset($_POST["_method"]) && $_POST["_method"] == "update") {
+      if (!empty($this->newPost) && isset($this->newPost["teacher-id"])) {
+        $teacherId = $this->newPost["teacher-id"];
+        $moduleIds = isset($this->newPost["modules"]) ? $this->newPost["modules"] : [];
+        TeacherModel::addModulesToTeacher($teacherId, $moduleIds);
       }
     }
 

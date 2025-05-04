@@ -22,7 +22,7 @@ class ModulesController extends RenderController
       $this->newPost = $_POST;
     }
 
-    if ($_POST["_method"] == "post") {
+    if (isset($_POST["_method"]) && $_POST["_method"] == "post") {
       if (
         !empty($this->newPost) &&
         isset($this->newPost["nom"]) &&
@@ -32,7 +32,7 @@ class ModulesController extends RenderController
       ) {
         ModuleModel::addModule($this->newPost);
       }
-    } elseif ($_POST["_method"] == "delete") {
+    } elseif (isset($_POST['_method']) && $_POST["_method"] == "delete") {
       if (!empty($this->newPost) && isset($this->newPost["module-id"])) {
         ModuleModel::deleteModule($this->newPost["module-id"]);
       }

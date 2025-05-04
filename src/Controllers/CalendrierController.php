@@ -6,15 +6,23 @@ use src\Models\CalendrierModel;
 use DateTime;
 use src\Models\LessonModel;
 use src\Models\ModuleModel;
+use src\Models\TeacherModel;
 
 class CalendrierController extends RenderController
 {
   public $dbSessions;
   public $dbModules;
+  public $grades;
+  public $classes;
+  public $sessionYears;
+  public $teachers;
+  public $filters = [];
 
   public function __construct()
   {
     parent::__construct();
+    
+    // Handle delete lesson request
     if (!empty($_POST)) {
       if ($_POST["_method"] == "delete") {
         if (isset($_POST["lesson-id"])) {
@@ -22,8 +30,40 @@ class CalendrierController extends RenderController
         }
       }
     }
-    $this->dbSessions = CalendrierModel::getSessions();
-    $this->dbModules = ModuleModel::getModulesAlocated();
+    
+    // Get filter data from GET request
+    if (!empty($_GET)) {
+      if (isset($_GET['type']) && $_GET['type'] === 'teacher' && !empty($_GET['teacher'])) {
+        $this->filters['teacher'] = $_GET['teacher'];
+      } else {
+        // Class view filters
+        if (!empty($_GET['grade'])) {
+          $this->filters['grade'] = $_GET['grade'];
+        }
+        if (!empty($_GET['class'])) {
+          $this->filters['class'] = $_GET['class'];
+        }
+        if (!empty($_GET['session'])) {
+          $this->filters['session'] = $_GET['session'];
+        }
+      }
+    }
+    
+    // Load data for filters
+    $this->grades = CalendrierModel::getGrades();
+    $this->classes = CalendrierModel::getClasses(isset($this->filters['grade']) ? $this->filters['grade'] : null);
+    $this->sessionYears = CalendrierModel::getSessionYears();
+    $this->teachers = TeacherModel::getTeachers();
+    
+    // Get filtered sessions
+    $this->dbSessions = CalendrierModel::getSessions($this->filters);
+    
+    // Filter modules based on the same criteria
+    if (!empty($this->filters)) {
+      $this->dbModules = ModuleModel::getModulesAlocated($this->filters);
+    } else {
+      $this->dbModules = ModuleModel::getModulesAlocated();
+    }
 
     $calendrierData = $this->creerCalendrierTableau(
       "2024-09-01",
@@ -32,6 +72,13 @@ class CalendrierController extends RenderController
     );
     $calendrierHtml = $this->buildCalendrierHtml($calendrierData);
     $modules = $this->dbModules;
+    
+    // Prepare view data
+    $grades = $this->grades;
+    $classes = $this->classes;
+    $sessionYears = $this->sessionYears;
+    $teachers = $this->teachers;
+    $filters = $this->filters;
 
     require "src/Views/partials/header.phtml";
     require "src/Views/calendrier.phtml";

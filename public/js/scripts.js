@@ -67,3 +67,34 @@ function validateNumberInput(event) {
     .replace(/[^0-9.]/g, "")
     .replace(/(\..*?)\..*/g, "$1");
 }
+
+// Ajout de modules
+function openModuleModal(teacherId, teacherName) {
+  document.getElementById('teacherId').value = teacherId;
+  document.getElementById('modalTitle').textContent = 'Assigner des modules à ' + teacherName;
+  
+  // Reset checkboxes
+  const checkboxes = document.querySelectorAll('#moduleForm input[type="checkbox"]');
+  checkboxes.forEach(checkbox => checkbox.checked = false);
+  
+  // Show modal
+  document.getElementById('moduleModal').classList.remove('hidden');
+}
+
+function closeModuleModal() {
+  document.getElementById('moduleModal').classList.add('hidden');
+}
+
+function toggleFilterView() {
+  const type = document.getElementById('type').value;
+  const classFilters = document.getElementById('classFilters');
+  const teacherFilters = document.getElementById('teacherFilters');
+
+  if (type === 'class') {
+      classFilters.classList.remove('hidden');
+      teacherFilters.classList.add('hidden');
+  } else {
+      classFilters.classList.add('hidden');
+      teacherFilters.classList.remove('hidden');
+  }
+}
