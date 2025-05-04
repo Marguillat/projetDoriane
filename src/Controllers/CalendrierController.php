@@ -4,6 +4,7 @@ namespace src\Controllers;
 
 use src\Models\CalendrierModel;
 use DateTime;
+use src\Models\LessonModel;
 use src\Models\ModuleModel;
 
 class CalendrierController extends RenderController
@@ -14,7 +15,13 @@ class CalendrierController extends RenderController
   public function __construct()
   {
     parent::__construct();
-
+    if (!empty($_POST)) {
+      if ($_POST["_method"] == "delete") {
+        if (isset($_POST["lesson-id"])) {
+          LessonModel::deleteLesson($_POST["lesson-id"]);
+        }
+      }
+    }
     $this->dbSessions = CalendrierModel::getSessions();
     $this->dbModules = ModuleModel::getModulesAlocated();
 
@@ -38,8 +45,11 @@ class CalendrierController extends RenderController
    * @param array $sessions Tableau des sessions à ajouter au calendrier
    * @return array Tableau des semaines avec les jours et sessions
    */
-  private function creerCalendrierTableau($dateDebut, $dateFin, $sessions)
-  {
+  private function creerCalendrierTableau(
+    $dateDebut,
+    $dateFin,
+    $sessions
+  ): array {
     // Convertir les chaînes en objets DateTime
     $debut = new DateTime($dateDebut);
     $fin = new DateTime($dateFin);
@@ -98,111 +108,158 @@ class CalendrierController extends RenderController
    * @param array $tableauSemaines Tableau des semaines avec les jours et sessions
    * @return string HTML généré pour le calendrier
    */
-  private function buildCalendrierHtml($tableauSemaines)
+  private function buildCalendrierHtml($tableauSemaines): string
   {
     // Générer le tableau HTML
     $calendrierHtml =
       '<table class="w-full table-fixed border" border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">';
-
-    // En-têtes des jours de la semaine
-    $calendrierHtml .= "<thead><tr>";
-    $joursNoms = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
-
-    foreach ($joursNoms as $nom) {
-      $calendrierHtml .= '<th class="border">' . $nom . "</th>";
-    }
-
-    $calendrierHtml .= "</tr></thead>";
-
+    $calendrierHtml .= $this->renderTableHeader();
     $calendrierHtml .= "<tbody>";
+
     foreach ($tableauSemaines as $semaine => $jours) {
       $calendrierHtml .= "<tr>";
       for ($i = 1; $i <= 5; $i++) {
-        if (isset($jours[$i])) {
-          $sessionNames = "";
-
-          $sessionNames .=
-            '<div data-date="' .
-            $jours[$i]["date"] .
-            '" data-timeStart="08:30:00" data-timeEnd="12:30:00" class="session-wrapper flex-1 border-b">';
-
-          if (!empty($jours[$i]["sessions"])) {
-            $ctn = count($jours[$i]["sessions"]);
-            for ($j = 0; $j < $ctn; $j++) {
-              //populates only if afternoon
-              if ($jours[$i]["sessions"][$j]["time_start"] > "12:00:00") {
-                continue;
-              }
-              $name = $jours[$i]["sessions"][$j]["nom"];
-              $color = $jours[$i]["sessions"][$j]["color"];
-              $heures =
-                $jours[$i]["sessions"][$j]["time_start"] .
-                " - " .
-                $jours[$i]["sessions"][$j]["time_end"];
-              $sessionNames .=
-                '<div class="w-full bg-[' .
-                $color .
-                '] flex-1 rounded-lg p-2">';
-              $sessionNames .= '<span class="text-xs ">' . $heures . "</span>";
-              $sessionNames .=
-                '<div class="text-sm font-semibold text-center">' .
-                $name .
-                "</div>";
-              $sessionNames .= "</div>";
-            }
-          }
-
-          $sessionNames .= "</div>";
-
-          // Second time block (13:30:00 - 16:30:00)
-          $sessionNames .=
-            '<div data-date="' .
-            $jours[$i]["date"] .
-            '" data-timeStart="13:30:00" data-timeEnd="16:30:00" class="session-wrapper flex-1">';
-          if (!empty($jours[$i]["sessions"])) {
-            $ctn = count($jours[$i]["sessions"]);
-            for ($j = 0; $j < $ctn; $j++) {
-              //populates only if afternoon
-              if ($jours[$i]["sessions"][$j]["time_start"] < "12:00:00") {
-                continue;
-              }
-              $name = $jours[$i]["sessions"][$j]["nom"];
-              $color = $jours[$i]["sessions"][$j]["color"];
-              $heures =
-                $jours[$i]["sessions"][$j]["time_start"] .
-                " - " .
-                $jours[$i]["sessions"][$j]["time_end"];
-              $sessionNames .=
-                '<div class="h-full flex flex-col justify-between w-full bg-[' .
-                $color .
-                '] flex-1 rounded-lg p-2">';
-              $sessionNames .= '<span class="text-xs">' . $heures . "</span>";
-              $sessionNames .=
-                '<div class="text-sm font-semibold text-center">' .
-                $name .
-                "</div>";
-              $sessionNames .= "</div>";
-            }
-          }
-          $sessionNames .= "</div>"; // Close the second wrapper div
-
-          $calendrierHtml .=
-            '<td class="border h-48" data-date="' . $jours[$i]["date"] . '">'; //ouverture td
-          $calendrierHtml .=
-            '<div ondrop="dropAdd(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2"><span class="text-right underline">' .
-            $jours[$i]["jour"] .
-            "</span>";
-          $calendrierHtml .= $sessionNames;
-          $calendrierHtml .= "</div>";
-          $calendrierHtml .= "</td>"; //fermeture td
-        } else {
-          $calendrierHtml .= "<td></td>";
-        }
+        $calendrierHtml .= isset($jours[$i])
+          ? $this->renderDayCell($jours[$i])
+          : "<td></td>";
       }
       $calendrierHtml .= "</tr>";
     }
-    $calendrierHtml .= "</tbody></table>";
 
+    $calendrierHtml .= "</tbody></table>";
     return $calendrierHtml;
+  }
+
+  /**
+   * Génère l'en-tête du tableau du calendrier
+   *
+   * @return string HTML pour l'en-tête du tableau
+   */
+  private function renderTableHeader(): string
+  {
+    $joursNoms = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+    $headerHtml = "<thead><tr>";
+    foreach ($joursNoms as $nom) {
+      $headerHtml .= '<th class="border">' . $nom . "</th>";
+    }
+    $headerHtml .= "</tr></thead>";
+    return $headerHtml;
+  }
+
+  /**
+   * Génère la cellule HTML pour un jour donné
+   *
+   * @param array $jour Les données du jour à afficher
+   * @return string HTML pour la cellule du jour
+   */
+  private function renderDayCell($jour): string
+  {
+    $cellHtml = '<td class="border h-48" data-date="' . $jour["date"] . '">';
+    $cellHtml .=
+      '<div ondrop="dropAdd(event)" ondragover="allowDrop(event)" class="flex flex-col h-full gap-2">';
+    $cellHtml .=
+      '<span class="text-right underline">' . $jour["jour"] . "</span>";
+
+    $cellHtml .= $this->renderSessionWrapper(
+      $jour,
+      "08:30:00",
+      "12:30:00",
+      "morning"
+    );
+    $cellHtml .= $this->renderSessionWrapper(
+      $jour,
+      "13:30:00",
+      "16:30:00",
+      "afternoon"
+    );
+    $cellHtml .= "</div></td>";
+    return $cellHtml;
+  }
+
+  /**
+   * Génère le wrapper HTML pour les sessions d'une période donnée
+   *
+   * @param array $jour Les données du jour
+   * @param string $startTime L'heure de début de la période
+   * @param string $endTime L'heure de fin de la période
+   * @param string $period Période de la journée ('morning' ou 'afternoon')
+   * @return string HTML pour le wrapper de sessions
+   */
+  private function renderSessionWrapper(
+    $jour,
+    $startTime,
+    $endTime,
+    $period
+  ): string {
+    $wrapperHtml =
+      '<div data-date="' .
+      $jour["date"] .
+      '" data-timeStart="' .
+      $startTime .
+      '" data-timeEnd="' .
+      $endTime .
+      '" class="session-wrapper flex-1">';
+    foreach ($jour["sessions"] as $session) {
+      // Pour chaque session du jour (max 2 normalement) render le bloc du matin ou de l'apprem
+      if (
+        ($period === "morning" && $session["time_start"] > "12:00:00") ||
+        ($period === "afternoon" && $session["time_start"] < "12:00:00")
+      ) {
+        continue;
+      }
+      $wrapperHtml .= $this->renderSessionBlock($session);
+    }
+    $wrapperHtml .= "</div>";
+    return $wrapperHtml;
+  }
+
+  /**
+   * Génère le bloc HTML pour une session donnée
+   *
+   * @param array $session Les données de la session à afficher
+   * @return string HTML pour le bloc de session
+   */
+  private function renderSessionBlock($session): string
+  {
+    $blockHtml =
+      '<div class="relative h-full flex flex-col justify-between w-full bg-[' .
+      $session["color"] .
+      '] flex-1 rounded-lg p-2">';
+    $blockHtml .=
+      '<span class="text-xs">' .
+      $session["time_start"] .
+      " - " .
+      $session["time_end"] .
+      "</span>";
+    $blockHtml .= $this->renderDeleteForm($session["id"]);
+    $blockHtml .=
+      '<div class="text-sm font-semibold text-center">' .
+      $session["nom"] .
+      "</div>";
+    $blockHtml .= "</div>";
+    return $blockHtml;
+  }
+
+  /**
+   * Génère le formulaire de suppression pour une session
+   *
+   * @param int $sessionId L'ID de la session à supprimer
+   * @return string HTML pour le formulaire de suppression
+   */
+  private function renderDeleteForm($sessionId): string
+  {
+    $formHtml =
+      '<form class="absolute top-0 right-0 bg-white w-7 h-7 rounded-[100%] flex justify-center items-center" method="post" action="' .
+      $this->baseUrl .
+      '">';
+    $formHtml .=
+      '<input name="_method" value="delete" type="hidden" readonly="readonly" />';
+    $formHtml .=
+      '<input name="lesson-id" value="' .
+      $sessionId .
+      '" type="hidden" readonly="readonly" />';
+    $formHtml .= '<button><i class="fa-solid fa-xmark"></i></button>';
+    $formHtml .= "</form>";
+    return $formHtml;
   }
 }

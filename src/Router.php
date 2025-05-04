@@ -9,24 +9,14 @@ class Router
 {
   private $siteConfig;
   private $routes;
-  // const ROUTES = [
-  //   "GET" => [
-  //     "/projet-Doriane/calendrier" => "src\\Controllers\\CalendrierController",
-  //     "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
-  //     "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
-  //   ],
-  //   "POST" => [
-  //     "/projet-Doriane/calendrier/" => "src\\Controllers\\CalendrierController",
-  //     "/projet-Doriane/modules" => "src\\Controllers\\ModulesController",
-  //     "/projet-Doriane/" => "src\\Controllers\\CalendrierController",
-  //   ],
-  // ];
 
   public function __construct()
   {
     $this->siteConfig = Config::getConfig("site");
     $this->routes = [
       "GET" => [
+        $this->siteConfig["rootUrl"] .
+        "/formateurs" => "src\\Controllers\\TeachersController",
         $this->siteConfig["rootUrl"] .
         "/calendrier" => "src\\Controllers\\CalendrierController",
         $this->siteConfig["rootUrl"] .
@@ -35,6 +25,8 @@ class Router
         "/" => "src\\Controllers\\CalendrierController",
       ],
       "POST" => [
+        $this->siteConfig["rootUrl"] .
+        "/formateurs" => "src\\Controllers\\TeachersController",
         $this->siteConfig["rootUrl"] .
         "/calendrier/" => "src\\Controllers\\CalendrierController",
         $this->siteConfig["rootUrl"] .

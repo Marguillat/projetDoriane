@@ -1,0 +1,117 @@
+<div class="flex gap-4 p-4">
+    <section class="p-6 max-w-[1369px] w-full">
+      <!-- Display teachers dynamically from $teachers array -->
+      <?php if (!empty($teachers)): ?>
+      <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Les formateurs</h2>
+        <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead class="bg-gray-100 font-semibold text-gray-700 border-b">
+            <tr>
+              <th class="p-3 text-left">Prénom</th>
+              <th class="p-3 text-left">Nom</th>
+              <th class="p-3 text-left">Email</th>
+              <th class="p-3 text-left">Description</th>
+              <th class="p-3 text-left">Modules</th>
+              <th class="p-3 text-left">Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($teachers as $teacher): ?>
+              <tr class="border-b hover:bg-gray-50 transition-colors">
+                <td class="p-3 text-gray-800"><?= $teacher["firstname"] ??
+                  "N/A" ?></td>
+                <td class="p-3 text-gray-800"><?= $teacher["lastname"] ??
+                  "N/A" ?></td>
+                <td class="p-3 text-blue-600 truncate"><?= $teacher["email"] ??
+                  "N/A" ?></td>
+                <td class="p-3 text-gray-600"><?= $teacher["description"] ??
+                  "No description available" ?></td>
+                <td class="p-3 text-gray-800 max-w-80">
+                  <?php $moduleList = explode(";", $teacher["modulelist"]); ?>
+                  <div class="flex gap-2 flex-wrap">
+                    <?php foreach ($moduleList as $module): ?>
+                    <?php if (!empty($module)): ?>
+                      <span class="bg-gray-200 p-1 rounded-sm">
+                        <?= $module ?>
+                      </span>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                  </div>
+                </td>
+                <td class="p-3 text-gray-800"><?= $teacher["hours"] ??
+                  "0" ?>h</td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      <?php else: ?>
+        <div class="container mx-auto">
+          <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 my-4" role="alert">
+            <p>No teachers found in the database.</p>
+          </div>
+        </div>
+      <?php endif; ?>
+    </section>
+    <section class="w-full max-w-[400px] sticky top-8">
+    <h2 class="text-xl font-bold mt-8 mb-4">Ajouter un nouveau formateur</h2>
+    <form
+        action="<?= $this->baseUrl . "formateurs" ?>"
+        method="POST"
+        class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
+          <input name="_method" type="hidden" value="post"></input>
+        <!-- Nom-prenom Input -->
+        <div class="flex gap-4">
+          <div>
+          <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
+          <input type="text" id="prenom" name="prenom" class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+          </div>
+          <div>
+          <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
+          <input type="text" id="nom" name="nom" class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+          </div>
+        </div>
+
+        <!-- Classe Input -->
+        <div>
+        <label for="classe" class="block text-sm font-medium text-gray-700">Classe</label>
+        <select id="classe" name="classe" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+            <?php foreach ($classes as $c): ?>
+                <option
+                  value="<?= htmlentities($c["id"]) ?>">
+                    <?= htmlentities($c["nom"]) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        </div>
+        <div>
+        <label for="module" class="block text-sm font-medium text-gray-700">Module</label>
+        <select id="module" name="module" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+            <?php foreach ($modules as $m): ?>
+                <option
+                  value="<?= htmlentities($m["id"]) ?>">
+                    <?= htmlentities($m["nom"]) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        </div>
+        <!-- Heures Input -->
+        <div>
+        <label for="heures" class="block text-sm font-medium text-gray-700">Heures</label>
+        <input
+            type="number"
+            id="heures"
+            name="heures"
+            step="1"
+            class="p-3 border border-gray-300 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            required>
+        </div>
+        <!-- Submit Button -->
+        <div>
+        <button
+            type="submit"
+            class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Ajouter</button>
+        </div>
+    </form>
+    </section>
+</div>

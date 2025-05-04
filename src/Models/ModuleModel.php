@@ -13,7 +13,12 @@ class ModuleModel
   {
     try {
       $db = DataBase::connect();
-      $query = $db->prepare("SELECT * FROM module;");
+      $query = $db->prepare("SELECT
+      m.id,m.nom,m.id_class,m.id_session,m.description,m.duration,m.color,m.is_option,
+      c.nom as className
+      from module as m
+      inner join class as c on m.id_class = c.id
+      ;");
 
       $query->execute();
 
@@ -105,3 +110,12 @@ class ModuleModel
     }
   }
 }
+
+// SELECT
+//     m.id,
+//     m.id_class,
+//     m.id_session,
+//     m.nom,m.description,
+//     m.duration,m.color,
+//     m.is_option,
+// FROM module as m

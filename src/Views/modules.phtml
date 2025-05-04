@@ -1,7 +1,8 @@
-<div class="flex gap-4">
+<div class="flex gap-4 p-4">
     <section class="p-6 max-w-[1369px] w-full">
     <h1 class="text-2xl font-bold mb-4">Modules</h1>
     <div class="flex flex-col gap-6">
+
         <?php foreach ($modules as $module): ?>
         <div
             class="p-4 shadow rounded-lg border border-gray-300"
@@ -43,13 +44,7 @@
     <section class="w-full max-w-[400px] sticky top-8">
     <h2 class="text-xl font-bold mt-8 mb-4">Add a New Module</h2>
     <form
-        action="<?= $this->siteInfo["protocol"] .
-          "://" .
-          $this->siteInfo["host"] .
-          $this->siteInfo["port"] .
-          "/" .
-          $this->siteInfo["rootUrl"] .
-          "modules" ?>"
+        action="<?= $this->baseUrl . "modules" ?>"
         method="POST"
         class="p-4 bg-white shadow rounded-lg border border-gray-300 flex flex-col gap-4">
           <input name="_method" type="hidden" value="post"></input>
@@ -98,7 +93,7 @@
         <div>
         <button
             type="submit"
-            class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Add Module</button>
+            class="w-full bg-gray-950 text-white py-2 px-4 rounded-md hover:bg-gray-800">Ajouter</button>
         </div>
     </form>
     </section>

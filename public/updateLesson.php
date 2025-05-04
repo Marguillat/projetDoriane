@@ -1,12 +1,10 @@
 <?php
-// filepath: a:\programation\php\projetDoriane\updateLesson.php
 
 require "../vendor/autoload.php";
 
 use src\Controllers\LessonController;
 
-header("Content-Type: application/json");
-
+// récupère les données json de la reqête ajax
 $input = json_decode(file_get_contents("php://input"), true);
 
 if (
@@ -30,5 +28,5 @@ if (
 
   echo json_encode($response);
 } else {
-  echo json_encode(["success" => false, "message" => "Invalid input"]);
+  http_response_code(400);
 }
