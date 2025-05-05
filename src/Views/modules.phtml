@@ -61,6 +61,18 @@
           <?php endforeach; ?>
         </select>
       </div>
+      <!-- session Input -->
+      <div>
+        <label for="session" class="block text-sm font-medium text-gray-700">Classe</label>
+        <select id="session" name="session" class="p-3 border border-gray-300 mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+          <?php foreach ($sessions as $s): ?>
+            <option
+              value="<?= htmlentities($s["id"]) ?>">
+              <?= htmlentities($s["name"]) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
       <!-- Heures Input -->
       <div>
         <label for="heures" class="block text-sm font-medium text-gray-700">Heures</label>

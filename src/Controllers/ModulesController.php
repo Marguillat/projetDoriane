@@ -5,11 +5,13 @@ namespace src\Controllers;
 use DateTime;
 use src\Models\ClassModel;
 use src\Models\ModuleModel;
+use src\Models\SessionModel;
 
 class ModulesController extends RenderController
 {
   private $dbModules;
   private $dbClasses;
+  private $dbSessions;
 
   // in case of POST request
   private $newPost;
@@ -40,9 +42,11 @@ class ModulesController extends RenderController
 
     $this->dbModules = ModuleModel::getModules();
     $this->dbClasses = ClassModel::getAllClasses();
+    $this->dbSessions = SessionModel::getAllSessions();
 
     $modules = $this->dbModules;
     $classes = $this->dbClasses;
+    $sessions = $this->dbSessions;
 
     require "src/Views/partials/header.phtml";
     require "src/Views/modules.phtml";

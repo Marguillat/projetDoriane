@@ -37,7 +37,7 @@ class ModuleModel
   {
     try {
       $db = DataBase::connect();
-      
+
       $sql = "SELECT
                 m.id, m.nom, m.description, m.duration,
                     (SELECT
@@ -51,47 +51,47 @@ class ModuleModel
                 INNER JOIN class as c ON m.id_class = c.id
                 INNER JOIN grade as g ON c.id_grade = g.id
                 INNER JOIN session as s ON m.id_session = s.id";
-      
+
       $whereConditions = [];
-      
+
       // Add filter conditions
       if (!empty($filters['class'])) {
         $whereConditions[] = "c.id = :class_id";
       }
-      
+
       if (!empty($filters['grade'])) {
         $whereConditions[] = "g.id = :grade_id";
       }
-      
+
       if (!empty($filters['session'])) {
         $whereConditions[] = "s.id = :session_id";
       }
-      
+
       if (!empty($filters['teacher'])) {
         $sql .= " INNER JOIN module_teacher as mt ON m.id = mt.id_module";
         $whereConditions[] = "mt.id_teacher = :teacher_id";
       }
-      
+
       // Add WHERE clause if there are conditions
       if (!empty($whereConditions)) {
         $sql .= " WHERE " . implode(" AND ", $whereConditions);
       }
-      
+
       $query = $db->prepare($sql);
-      
+
       // Bind parameters if they exist
       if (!empty($filters['class'])) {
         $query->bindParam(':class_id', $filters['class']);
       }
-      
+
       if (!empty($filters['grade'])) {
         $query->bindParam(':grade_id', $filters['grade']);
       }
-      
+
       if (!empty($filters['session'])) {
         $query->bindParam(':session_id', $filters['session']);
       }
-      
+
       if (!empty($filters['teacher'])) {
         $query->bindParam(':teacher_id', $filters['teacher']);
       }
@@ -119,10 +119,10 @@ class ModuleModel
                 VALUES (:id_class,:id_session,:nom, :duration, :color, :is_option);
             "
       );
-      $defaultSession = 1;
+
       $query->bindParam(":nom", $newModule["nom"]);
       $query->bindParam(":id_class", $newModule["classe"]);
-      $query->bindParam(":id_session", $defaultSession); //à modifier
+      $query->bindParam(":id_session", $newModule["session"]);
       $query->bindParam(":duration", $newModule["heures"]);
       $query->bindParam(":color", $newModule["color"]);
 
