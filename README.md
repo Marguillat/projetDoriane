@@ -78,3 +78,11 @@ RewriteCond %{REQUEST_URI} !^/public/
 # Rediriger toutes les autres requêtes vers index.php
 RewriteRule ^ index.php [L]
 ```
+
+----
+## Justification
+### Tailwind
+L'utilisation d'un framework comme tailwind permet de limiter la création de fichiers css. L'utilisation des classes tailwind permet de limiter les sources de conflits css et les potentielles sources de dettes techniques.
+
+### Composer
+Manager de dépendances comparable à npm/node pour PHP, permet de créer plus facilement des projets php plus facilement avec nottement l'utilisation de autoload.
