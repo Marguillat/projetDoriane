@@ -5,23 +5,37 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
+  // Store only the ID, not the entire element
   moduleId = ev.target.id;
 }
 
 function dropAdd(ev) {
   ev.preventDefault();
   let target = ev.target;
-
+  
+  // Find the closest session-wrapper if the drop target isn't one
+  if (!target.classList.contains('session-wrapper')) {
+    target = target.closest('.session-wrapper') || target;
+  }
+  
+  // Get data attributes from the target
   let date = target.dataset.date;
   let timeStart = target.dataset.timestart;
   let timeEnd = target.dataset.timeend;
+  
+  // Validate that we have all required data before proceeding
+  if (!moduleId || !date || !timeStart || !timeEnd) {
+    console.error('Missing required data for drop operation');
+    return;
+  }
+  
   console.log(
     JSON.stringify({
       moduleId: moduleId,
       date: date,
       time_start: timeStart,
       time_end: timeEnd,
-    }),
+    })
   );
 
   // Send AJAX request to update the database
@@ -37,7 +51,20 @@ function dropAdd(ev) {
       time_end: timeEnd,
     }),
   })
-    .then((response) => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.text().then(text => {
+        if (!text) return { success: false, message: 'Empty response' };
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          console.error('JSON Parse Error:', e, 'Response text:', text);
+          throw new Error('Invalid JSON response');
+        }
+      });
+    })
     .then((data) => {
       if (data.success) {
         console.log("Database updated successfully");
@@ -49,8 +76,6 @@ function dropAdd(ev) {
     .catch((error) => {
       console.error("Error:", error);
     });
-
-  // ev.target.appendChild((document.getElementById(moduleId)).cloneNode(true));
 }
 
 // validations scripts
@@ -65,7 +90,7 @@ function validateNumberInput(event) {
   const input = event.target;
   input.value = input.value
     .replace(/[^0-9.]/g, "")
-    .replace(/(\..*?)\..*/g, "$1");
+    .replace(/(\.*?)\..*/g, "$1");
 }
 
 // Ajout de modules

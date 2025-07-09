@@ -25,7 +25,6 @@ class DataBase
     self::$login = $dbConfig["login"];
     self::$pwd = $dbConfig["pwd"];
     self::$type = $dbConfig["type"];
-    self::$port = $dbConfig["port"];
   }
 
   public static function connect(): PDO
