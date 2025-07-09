@@ -180,10 +180,10 @@
                                         <?php
                                         $allocatedDuration = round(
                                             floatval(
-                                                $modules[$i]["alocatedduration"]
+                                                $modules[$i]["alocatedDuration"]
                                             ),
                                             1
-                                        );
+                                        )/10000;
                                         $duration = round(
                                             floatval($modules[$i]["duration"]),
                                             1
