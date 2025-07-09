@@ -23,7 +23,7 @@
                 <td class="p-3 text-blue-600 truncate"><?= $teacher["email"] ?? "N/A" ?></td>
                 <td class="p-3 text-gray-600"><?= $teacher["description"] ?? "Pas de description" ?></td>
                 <td class="p-3 text-gray-800 max-w-80">
-                  <?php $moduleList = explode(";", $teacher["modulelist"]); ?>
+                  <?php $moduleList = explode(";", $teacher["moduleList"]); ?>
                   <div class="flex gap-2 flex-wrap">
                     <?php foreach ($moduleList as $module): ?>
                       <?php if (!empty($module)): ?>
