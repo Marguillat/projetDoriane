@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `class` (
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_grade` (`id_grade`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `class`
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `grade` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `grade`
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `lesson` (
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_module` (`id_module`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `lesson`
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `module` (
   PRIMARY KEY (`id`),
   KEY `id_class` (`id_class`),
   KEY `id_session` (`id_session`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `module`
@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `module_teacher` (
   PRIMARY KEY (`id`),
   KEY `id_teacher` (`id_teacher`),
   KEY `id_module` (`id_module`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `module_teacher`
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `session`
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `teacher`
